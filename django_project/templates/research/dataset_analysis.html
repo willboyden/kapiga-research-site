@@ -1,1 +1,549 @@
-...existing code...
+{% extends 'base.html' %}
+
+{% block title %}Dataset Analysis - {{ dataset.name }}{% endblock %}
+
+{% block content %}
+<!-- Dataset Header -->
+<section class="py-4 bg-primary text-white">
+    <div class="container">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb text-white mb-2">
+                <li class="breadcrumb-item"><a href="{% url 'research:home' %}" class="text-white">Home</a></li>
+                <li class="breadcrumb-item"><a href="{% url 'research:studies' %}" class="text-white">Studies</a></li>
+                <li class="breadcrumb-item"><a href="{% url 'research:study_detail' dataset.study.pk %}" class="text-white">{{ dataset.study.title|truncatechars:30 }}</a></li>
+                <li class="breadcrumb-item active">Dataset Analysis</li>
+            </ol>
+        </nav>
+        <h1><i class="fas fa-chart-line"></i> {{ dataset.name }}</h1>
+        <p class="lead">{{ dataset.description }}</p>
+    </div>
+</section>
+
+<!-- Dataset Information -->
+<section class="py-4 bg-light">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8">
+                <div class="d-flex flex-wrap gap-2">
+                    <span class="badge bg-primary fs-6">{{ dataset.get_file_format_display }}</span>
+                    {% if dataset.size_mb %}
+                    <span class="badge bg-info fs-6">{{ dataset.size_mb }} MB</span>
+                    {% endif %}
+                    <span class="badge bg-success fs-6">{{ dataset.study.get_study_type_display }}</span>
+                    {% if dataset.is_public %}
+                    <span class="badge bg-warning fs-6">Public Dataset</span>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="col-md-4 text-end">
+                <small class="text-muted">
+                    <i class="fas fa-calendar"></i> Created: {{ dataset.created_at|date:"M d, Y" }}
+                </small>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Analysis Interface -->
+<section class="py-5">
+    <div class="container">
+        <div class="row">
+            <!-- Analysis Controls -->
+            <div class="col-lg-4">
+                <div class="card sticky-top" style="top: 20px;">
+                    <div class="card-header">
+                        <h5><i class="fas fa-cogs"></i> Analysis Tools</h5>
+                    </div>
+                    <div class="card-body">
+                        <form id="analysisForm">
+                            {% csrf_token %}
+                            <div class="mb-3">
+                                <label for="analysisType" class="form-label">Analysis Type</label>
+                                <select class="form-select" id="analysisType" name="analysis_type" required>
+                                    <option value="">Select Analysis</option>
+                                    <option value="descriptive">Descriptive Statistics</option>
+                                    <option value="correlation">Correlation Analysis</option>
+                                    <option value="distribution">Data Distribution</option>
+                                    <option value="missing">Missing Data Analysis</option>
+                                    <option value="outliers">Outlier Detection</option>
+                                </select>
+                            </div>
+                            
+                            <div class="mb-3" id="columnSelector" style="display: none;">
+                                <label for="selectedColumns" class="form-label">Select Columns</label>
+                                <select class="form-select" id="selectedColumns" name="selected_columns" multiple>
+                                    <!-- Will be populated dynamically -->
+                                </select>
+                                <small class="text-muted">Hold Ctrl/Cmd to select multiple columns</small>
+                            </div>
+                            
+                            <div class="d-grid">
+                                <button type="submit" class="btn btn-primary">
+                                    <i class="fas fa-play"></i> Run Analysis
+                                </button>
+                            </div>
+                        </form>
+                        
+                        <hr>
+                        
+                        <h6>Quick Actions</h6>
+                        <div class="d-grid gap-2">
+                            <button class="btn btn-outline-secondary btn-sm" onclick="loadDataPreview()">
+                                <i class="fas fa-eye"></i> Data Preview
+                            </button>
+                            <button class="btn btn-outline-info btn-sm" onclick="showDataInfo()">
+                                <i class="fas fa-info-circle"></i> Dataset Info
+                            </button>
+                            <button class="btn btn-outline-success btn-sm" onclick="exportResults()">
+                                <i class="fas fa-download"></i> Export Results
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Results Area -->
+            <div class="col-lg-8">
+                <!-- Loading Indicator -->
+                <div id="loadingIndicator" class="text-center py-5" style="display: none;">
+                    <div class="spinner-border text-primary" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                    </div>
+                    <p class="mt-2">Running analysis...</p>
+                </div>
+                
+                <!-- Results Container -->
+                <div id="resultsContainer">
+                    <!-- Welcome Message -->
+                    <div class="card" id="welcomeCard">
+                        <div class="card-body text-center py-5">
+                            <i class="fas fa-chart-bar fa-3x text-muted mb-3"></i>
+                            <h4>Dataset Analysis Tools</h4>
+                            <p class="text-muted">
+                                Select an analysis type from the sidebar to begin exploring your data. 
+                                Our Python-powered analytics engine will provide comprehensive insights 
+                                into your research dataset.
+                            </p>
+                            <div class="row mt-4">
+                                <div class="col-6">
+                                    <h6 class="text-primary">Available Analyses</h6>
+                                    <ul class="list-unstyled small text-start">
+                                        <li>• Descriptive Statistics</li>
+                                        <li>• Correlation Analysis</li>
+                                        <li>• Distribution Plots</li>
+                                        <li>• Missing Data Analysis</li>
+                                        <li>• Outlier Detection</li>
+                                    </ul>
+                                </div>
+                                <div class="col-6">
+                                    <h6 class="text-success">Export Options</h6>
+                                    <ul class="list-unstyled small text-start">
+                                        <li>• CSV Reports</li>
+                                        <li>• Statistical Summaries</li>
+                                        <li>• Visualization Images</li>
+                                        <li>• Jupyter Notebooks</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Previous Analysis Results -->
+<section class="py-5 bg-light">
+    <div class="container">
+        <h2 class="mb-4">Previous Analysis Results</h2>
+        {% if analysis_results %}
+        <div class="row">
+            {% for result in analysis_results %}
+            <div class="col-lg-4 mb-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h6 class="card-title">{{ result.analysis_type|title }}</h6>
+                        <p class="text-muted small">
+                            <i class="fas fa-clock"></i> {{ result.created_at|date:"M d, Y H:i" }}
+                            {% if result.created_by %}
+                            <br><i class="fas fa-user"></i> {{ result.created_by.username }}
+                            {% endif %}
+                        </p>
+                        {% if result.results %}
+                        <div class="mt-2">
+                            <small class="text-muted">
+                                {{ result.results|length }} results generated
+                            </small>
+                        </div>
+                        {% endif %}
+                        <div class="mt-3">
+                            <button class="btn btn-outline-primary btn-sm" onclick="loadPreviousResult({{ result.id }})">
+                                <i class="fas fa-eye"></i> View Results
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        {% else %}
+        <div class="text-center py-4">
+            <i class="fas fa-history fa-2x text-muted mb-3"></i>
+            <p class="text-muted">No previous analysis results found for this dataset.</p>
+        </div>
+        {% endif %}
+    </div>
+</section>
+
+<!-- Dataset Metadata -->
+<section class="py-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h5><i class="fas fa-info-circle"></i> Dataset Information</h5>
+                    </div>
+                    <div class="card-body">
+                        <table class="table table-sm">
+                            <tr>
+                                <td><strong>Name:</strong></td>
+                                <td>{{ dataset.name }}</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Study:</strong></td>
+                                <td><a href="{% url 'research:study_detail' dataset.study.pk %}">{{ dataset.study.title|truncatechars:50 }}</a></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Format:</strong></td>
+                                <td>{{ dataset.get_file_format_display }}</td>
+                            </tr>
+                            {% if dataset.size_mb %}
+                            <tr>
+                                <td><strong>Size:</strong></td>
+                                <td>{{ dataset.size_mb }} MB</td>
+                            </tr>
+                            {% endif %}
+                            <tr>
+                                <td><strong>Created:</strong></td>
+                                <td>{{ dataset.created_at|date:"F d, Y" }}</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Public:</strong></td>
+                                <td>
+                                    {% if dataset.is_public %}
+                                    <span class="badge bg-success">Yes</span>
+                                    {% else %}
+                                    <span class="badge bg-warning">Restricted</span>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h5><i class="fas fa-shield-alt"></i> Data Access & Ethics</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="alert alert-info">
+                            <h6><i class="fas fa-lock"></i> Data Protection</h6>
+                            <p class="mb-2">This dataset is analyzed in compliance with:</p>
+                            <ul class="mb-0">
+                                <li>Tanzania National Institute for Medical Research (NIMR) guidelines</li>
+                                <li>London School of Hygiene & Tropical Medicine ethics protocols</li>
+                                <li>International research ethics standards</li>
+                            </ul>
+                        </div>
+                        <div class="alert alert-warning">
+                            <h6><i class="fas fa-exclamation-triangle"></i> Usage Guidelines</h6>
+                            <p class="mb-0">
+                                Analysis results are for research purposes only. 
+                                Please ensure proper attribution and follow institutional 
+                                data sharing policies when using or sharing results.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_css %}
+<style>
+.sticky-top {
+    z-index: 1020;
+}
+
+#resultsContainer .card {
+    border: none;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.analysis-result {
+    background: #f8f9fa;
+    border-left: 4px solid #007bff;
+    padding: 1rem;
+    margin: 1rem 0;
+}
+
+.analysis-result h6 {
+    color: #007bff;
+    margin-bottom: 0.5rem;
+}
+
+.data-table {
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+.chart-container {
+    position: relative;
+    height: 300px;
+    margin: 1rem 0;
+}
+
+pre.code-output {
+    background: #2d3748;
+    color: #e2e8f0;
+    padding: 1rem;
+    border-radius: 0.375rem;
+    font-size: 0.875rem;
+    overflow-x: auto;
+}
+</style>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+// Analysis form handling
+document.getElementById('analysisForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    runAnalysis();
+});
+
+// Analysis type change handler
+document.getElementById('analysisType').addEventListener('change', function() {
+    const analysisType = this.value;
+    const columnSelector = document.getElementById('columnSelector');
+    
+    if (analysisType === 'correlation' || analysisType === 'distribution') {
+        columnSelector.style.display = 'block';
+        loadColumnOptions();
+    } else {
+        columnSelector.style.display = 'none';
+    }
+});
+
+function runAnalysis() {
+    const form = document.getElementById('analysisForm');
+    const formData = new FormData(form);
+    
+    // Show loading indicator
+    document.getElementById('loadingIndicator').style.display = 'block';
+    document.getElementById('welcomeCard').style.display = 'none';
+    
+    fetch('{% url "research:dataset_analysis" dataset.id %}', {
+        method: 'POST',
+        body: formData,
+        headers: {
+            'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value
+        }
+    })
+    .then(response => response.json())
+    .then(data => {
+        document.getElementById('loadingIndicator').style.display = 'none';
+        
+        if (data.success) {
+            displayResults(data.results, formData.get('analysis_type'));
+        } else {
+            displayError(data.error);
+        }
+    })
+    .catch(error => {
+        document.getElementById('loadingIndicator').style.display = 'none';
+        displayError('An error occurred while running the analysis.');
+        console.error('Error:', error);
+    });
+}
+
+function displayResults(results, analysisType) {
+    const container = document.getElementById('resultsContainer');
+    
+    let html = `
+        <div class="card">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <h5><i class="fas fa-chart-line"></i> ${analysisType.charAt(0).toUpperCase() + analysisType.slice(1)} Analysis Results</h5>
+                <button class="btn btn-outline-primary btn-sm" onclick="exportResults()">
+                    <i class="fas fa-download"></i> Export
+                </button>
+            </div>
+            <div class="card-body">
+    `;
+    
+    if (analysisType === 'descriptive') {
+        html += displayDescriptiveResults(results);
+    } else if (analysisType === 'correlation') {
+        html += displayCorrelationResults(results);
+    } else if (analysisType === 'distribution') {
+        html += displayDistributionResults(results);
+    } else if (analysisType === 'missing') {
+        html += displayMissingDataResults(results);
+    } else if (analysisType === 'outliers') {
+        html += displayOutlierResults(results);
+    }
+    
+    html += `
+            </div>
+        </div>
+    `;
+    
+    container.innerHTML = html;
+}
+
+function displayDescriptiveResults(results) {
+    let html = '<h6>Dataset Overview</h6>';
+    
+    if (results.shape) {
+        html += `<p><strong>Shape:</strong> ${results.shape[0]} rows × ${results.shape[1]} columns</p>`;
+    }
+    
+    if (results.summary) {
+        html += '<h6 class="mt-4">Statistical Summary</h6>';
+        html += '<div class="table-responsive"><table class="table table-sm table-striped">';
+        html += '<thead><tr><th>Variable</th><th>Count</th><th>Mean</th><th>Std</th><th>Min</th><th>Max</th></tr></thead>';
+        html += '<tbody>';
+        
+        for (const [variable, stats] of Object.entries(results.summary)) {
+            html += `<tr>
+                <td><strong>${variable}</strong></td>
+                <td>${stats.count || 'N/A'}</td>
+                <td>${stats.mean ? stats.mean.toFixed(2) : 'N/A'}</td>
+                <td>${stats.std ? stats.std.toFixed(2) : 'N/A'}</td>
+                <td>${stats.min || 'N/A'}</td>
+                <td>${stats.max || 'N/A'}</td>
+            </tr>`;
+        }
+        
+        html += '</tbody></table></div>';
+    }
+    
+    if (results.missing_values) {
+        html += '<h6 class="mt-4">Missing Values</h6>';
+        html += '<div class="row">';
+        for (const [column, missing] of Object.entries(results.missing_values)) {
+            if (missing > 0) {
+                html += `<div class="col-md-4 mb-2">
+                    <div class="alert alert-warning py-2">
+                        <strong>${column}:</strong> ${missing} missing
+                    </div>
+                </div>`;
+            }
+        }
+        html += '</div>';
+    }
+    
+    return html;
+}
+
+function displayCorrelationResults(results) {
+    let html = '<h6>Correlation Matrix</h6>';
+    html += '<p class="text-muted">Correlation coefficients between numerical variables</p>';
+    
+    if (results && typeof results === 'object') {
+        html += '<div class="table-responsive">';
+        html += '<table class="table table-sm">';
+        
+        const variables = Object.keys(results);
+        html += '<thead><tr><th></th>';
+        variables.forEach(variable => {
+            html += `<th class="text-center">${variable}</th>`;
+        });
+        html += '</tr></thead><tbody>';
+        
+        variables.forEach(var1 => {
+            html += `<tr><th>${var1}</th>`;
+            variables.forEach(var2 => {
+                const correlation = results[var1] && results[var1][var2] ? results[var1][var2].toFixed(3) : '0.000';
+                const cellClass = Math.abs(parseFloat(correlation)) > 0.7 ? 'table-danger' : 
+                                Math.abs(parseFloat(correlation)) > 0.5 ? 'table-warning' : '';
+                html += `<td class="text-center ${cellClass}">${correlation}</td>`;
+            });
+            html += '</tr>';
+        });
+        
+        html += '</tbody></table></div>';
+        
+        html += `
+            <div class="mt-3">
+                <small class="text-muted">
+                    <strong>Interpretation:</strong>
+                    <span class="badge bg-danger ms-1">|r| > 0.7</span> Strong correlation
+                    <span class="badge bg-warning ms-1">|r| > 0.5</span> Moderate correlation
+                </small>
+            </div>
+        `;
+    }
+    
+    return html;
+}
+
+function displayDistributionResults(results) {
+    return '<h6>Data Distribution Analysis</h6><p>Distribution analysis results would appear here.</p>';
+}
+
+function displayMissingDataResults(results) {
+    return '<h6>Missing Data Analysis</h6><p>Missing data analysis results would appear here.</p>';
+}
+
+function displayOutlierResults(results) {
+    return '<h6>Outlier Detection</h6><p>Outlier detection results would appear here.</p>';
+}
+
+function displayError(error) {
+    const container = document.getElementById('resultsContainer');
+    container.innerHTML = `
+        <div class="alert alert-danger">
+            <h6><i class="fas fa-exclamation-triangle"></i> Analysis Error</h6>
+            <p class="mb-0">${error}</p>
+        </div>
+    `;
+}
+
+function loadColumnOptions() {
+    // This would typically load from the actual dataset
+    const columns = ['age', 'gender', 'hiv_status', 'cd4_count', 'viral_load', 'treatment_duration'];
+    const select = document.getElementById('selectedColumns');
+    select.innerHTML = '';
+    
+    columns.forEach(column => {
+        const option = document.createElement('option');
+        option.value = column;
+        option.textContent = column.replace('_', ' ').toUpperCase();
+        select.appendChild(option);
+    });
+}
+
+function loadDataPreview() {
+    alert('Data preview functionality would load first 10 rows of the dataset.');
+}
+
+function showDataInfo() {
+    alert('Dataset information: {{ dataset.name }}\nFormat: {{ dataset.get_file_format_display }}\nSize: {{ dataset.size_mb }} MB');
+}
+
+function exportResults() {
+    alert('Export functionality would download analysis results as CSV/PDF.');
+}
+
+function loadPreviousResult(resultId) {
+    alert(`Loading previous analysis result ${resultId}`);
+}
+</script>
+{% endblock %}

@@ -1,1 +1,132 @@
-...existing code...
+{
+  "impact_metrics": {
+    "total_publications": 10,
+    "total_citations": "829",
+    "avg_citations_per_paper": 82.9,
+    "median_citations": 56.0,
+    "h_index": 9,
+    "high_impact_papers": 2,
+    "research_span_years": "17",
+    "publications_per_year": 0.5882352941176471
+  },
+  "category_analysis": [
+    {
+      "research_category": "Cardiovascular Disease",
+      "Publications": 1,
+      "Total_Citations": 12,
+      "Avg_Citations": 12.0
+    },
+    {
+      "research_category": "Environmental Health",
+      "Publications": 1,
+      "Total_Citations": 8,
+      "Avg_Citations": 8.0
+    },
+    {
+      "research_category": "HIV Epidemiology",
+      "Publications": 3,
+      "Total_Citations": 234,
+      "Avg_Citations": 78.0
+    },
+    {
+      "research_category": "HIV Prevention",
+      "Publications": 1,
+      "Total_Citations": 312,
+      "Avg_Citations": 312.0
+    },
+    {
+      "research_category": "HIV Risk Factors",
+      "Publications": 1,
+      "Total_Citations": 156,
+      "Avg_Citations": 156.0
+    },
+    {
+      "research_category": "HIV Treatment",
+      "Publications": 1,
+      "Total_Citations": 28,
+      "Avg_Citations": 28.0
+    },
+    {
+      "research_category": "HIV Virology",
+      "Publications": 1,
+      "Total_Citations": 45,
+      "Avg_Citations": 45.0
+    },
+    {
+      "research_category": "Methods",
+      "Publications": 1,
+      "Total_Citations": 34,
+      "Avg_Citations": 34.0
+    }
+  ],
+  "location_analysis": [
+    {
+      "location": "Tanzania",
+      "Studies": 7,
+      "Citations": 471,
+      "Total_Participants": 32381.0
+    },
+    {
+      "location": "Kenya/Tanzania/South Africa",
+      "Studies": 1,
+      "Citations": 312,
+      "Total_Participants": 2120.0
+    },
+    {
+      "location": "Lake Victoria",
+      "Studies": 1,
+      "Citations": 34,
+      "Total_Participants": 0.0
+    },
+    {
+      "location": "Sub-Saharan Africa",
+      "Studies": 1,
+      "Citations": 12,
+      "Total_Participants": 0.0
+    }
+  ],
+  "journal_analysis": [
+    {
+      "journal": "New England Journal of Medicine",
+      "Publications": 1,
+      "Total_Citations": 312,
+      "Avg_Citations": 312.0
+    },
+    {
+      "journal": "BMC Public Health",
+      "Publications": 2,
+      "Total_Citations": 167,
+      "Avg_Citations": 83.5
+    },
+    {
+      "journal": "Sexually Transmitted Diseases",
+      "Publications": 1,
+      "Total_Citations": 156,
+      "Avg_Citations": 156.0
+    },
+    {
+      "journal": "PLOS ONE",
+      "Publications": 3,
+      "Total_Citations": 146,
+      "Avg_Citations": 48.7
+    },
+    {
+      "journal": "Contemporary Clinical Trials",
+      "Publications": 1,
+      "Total_Citations": 28,
+      "Avg_Citations": 28.0
+    },
+    {
+      "journal": "Frontiers in Cardiovascular Medicine",
+      "Publications": 1,
+      "Total_Citations": 12,
+      "Avg_Citations": 12.0
+    },
+    {
+      "journal": "Environmental Research",
+      "Publications": 1,
+      "Total_Citations": 8,
+      "Avg_Citations": 8.0
+    }
+  ]
+}

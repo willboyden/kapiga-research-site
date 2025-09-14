@@ -1,1 +1,193 @@
-...existing code...
+{% extends 'base.html' %}
+
+{% block title %}Dr. Saidi Kapiga - HIV Research in Africa{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="hero-section">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-8">
+                <h1 class="display-4 mb-4">HIV Research in Africa</h1>
+                <p class="lead mb-4">
+                    Welcome to the research portal of Dr. Saidi Kapiga, featuring over 30 years of 
+                    groundbreaking HIV/AIDS research, public health interventions, and clinical trials 
+                    across Eastern and Southern Africa.
+                </p>
+                <div class="d-flex flex-wrap gap-3">
+                    <a href="{% url 'research:about' %}" class="btn btn-light btn-lg">About Dr. Kapiga</a>
+                    <a href="{% url 'research:studies' %}" class="btn btn-outline-light btn-lg">Browse Research</a>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="text-center">
+                    <div class="bg-white p-4 rounded shadow">
+                        <h3 class="text-dark">Research Impact</h3>
+                        <div class="stat-number text-primary">{{ total_studies }}+</div>
+                        <p class="text-muted">Research Studies</p>
+                        <div class="stat-number text-primary">{{ total_publications }}+</div>
+                        <p class="text-muted">Publications</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Research Statistics -->
+<section class="research-stats">
+    <div class="container">
+        <div class="row text-center">
+            <div class="col-md-3">
+                <div class="stat-number">{{ total_studies }}</div>
+                <h5>Research Studies</h5>
+                <p class="text-muted">Clinical trials and observational studies</p>
+            </div>
+            <div class="col-md-3">
+                <div class="stat-number">{{ total_publications }}</div>
+                <h5>Publications</h5>
+                <p class="text-muted">Peer-reviewed research papers</p>
+            </div>
+            <div class="col-md-3">
+                <div class="stat-number">{{ total_researchers }}</div>
+                <h5>Collaborators</h5>
+                <p class="text-muted">International research partners</p>
+            </div>
+            <div class="col-md-3">
+                <div class="stat-number">30+</div>
+                <h5>Years Experience</h5>
+                <p class="text-muted">In public health research</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Research Categories -->
+<section class="py-5">
+    <div class="container">
+        <h2 class="text-center mb-5">Research Areas</h2>
+        <div class="row">
+            {% for category in research_categories %}
+            <div class="col-lg-4 mb-4">
+                <div class="research-category h-100">
+                    <h4>{{ category.name }}</h4>
+                    <p>{{ category.description }}</p>
+                    <a href="{% url 'research:studies' %}?category={{ category.name }}" class="btn btn-primary">
+                        View Studies
+                    </a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<!-- Recent Studies -->
+<section class="py-5 bg-light">
+    <div class="container">
+        <h2 class="text-center mb-5">Recent Research Studies</h2>
+        <div class="row">
+            {% for study in recent_studies %}
+            <div class="col-lg-6 mb-4">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ study.title }}</h5>
+                        <p class="card-text">{{ study.description|truncatewords:30 }}</p>
+                        <div class="mb-3">
+                            <small class="text-muted">
+                                <strong>Type:</strong> {{ study.get_study_type_display }}<br>
+                                <strong>Location:</strong> {{ study.location }}<br>
+                                {% if study.sample_size %}
+                                <strong>Sample Size:</strong> {{ study.sample_size }}<br>
+                                {% endif %}
+                                {% if study.publication_date %}
+                                <strong>Published:</strong> {{ study.publication_date|date:"M Y" }}
+                                {% endif %}
+                            </small>
+                        </div>
+                        <a href="{% url 'research:study_detail' study.pk %}" class="btn btn-primary">
+                            Learn More
+                        </a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        <div class="text-center mt-4">
+            <a href="{% url 'research:studies' %}" class="btn btn-outline-primary btn-lg">
+                View All Studies
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- Featured Publications -->
+<section class="py-5">
+    <div class="container">
+        <h2 class="text-center mb-5">High-Impact Publications</h2>
+        <div class="row">
+            {% for publication in featured_publications %}
+            <div class="col-lg-12 mb-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ publication.title }}</h5>
+                        <p class="text-muted">
+                            <strong>{{ publication.journal }}</strong>
+                            {% if publication.publication_date %}
+                            • {{ publication.publication_date|date:"M Y" }}
+                            {% endif %}
+                            {% if publication.citation_count %}
+                            • {{ publication.citation_count }} citations
+                            {% endif %}
+                        </p>
+                        <p class="card-text">{{ publication.authors|truncatewords:15 }}</p>
+                        {% if publication.doi %}
+                        <a href="https://doi.org/{{ publication.doi }}" target="_blank" class="btn btn-sm btn-outline-primary">
+                            View Publication
+                        </a>
+                        {% endif %}
+                        {% if publication.pmid %}
+                        <a href="https://pubmed.ncbi.nlm.nih.gov/{{ publication.pmid }}" target="_blank" class="btn btn-sm btn-outline-secondary">
+                            PubMed
+                        </a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        <div class="text-center mt-4">
+            <a href="{% url 'research:publications' %}" class="btn btn-outline-primary btn-lg">
+                View All Publications
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- Key Research Highlights -->
+<section class="py-5 bg-primary text-white">
+    <div class="container">
+        <h2 class="text-center mb-5">Research Highlights</h2>
+        <div class="row">
+            <div class="col-lg-4 mb-4">
+                <div class="text-center">
+                    <h4>HIV Prevention Trials</h4>
+                    <p>Leading groundbreaking prevention studies including the FEM-PrEP trial and social worker interventions for post-hospital HIV care.</p>
+                </div>
+            </div>
+            <div class="col-lg-4 mb-4">
+                <div class="text-center">
+                    <h4>African Health Research</h4>
+                    <p>Over 30 years of research experience in Tanzania, Uganda, Kenya, and other African countries, focusing on community-based interventions.</p>
+                </div>
+            </div>
+            <div class="col-lg-4 mb-4">
+                <div class="text-center">
+                    <h4>Global Collaboration</h4>
+                    <p>Partner with LSHTM, NIMR, Harvard, and other leading institutions to advance HIV research and public health in Africa.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

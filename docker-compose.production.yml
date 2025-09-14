@@ -1,0 +1,93 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres:15
+    container_name: kapiga_postgres_prod
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    volumes:
+      - postgres_data_prod:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+
+  redis:
+    image: redis:7-alpine
+    container_name: kapiga_redis_prod
+    ports:
+      - "6379:6379"
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+
+  web:
+    build: .
+    container_name: kapiga_django_prod
+    command: >
+      sh -c "python manage.py migrate &&
+             python manage.py collectstatic --noinput &&
+             gunicorn --bind 0.0.0.0:8000 --workers 3 --worker-class gevent kapiga_site.wsgi:application"
+    volumes:
+      - ./django_project:/app
+      - ./notebooks:/app/notebooks
+      - static_volume_prod:/app/staticfiles
+      - media_volume_prod:/app/media
+    ports:
+      - "8000:8000"
+    environment:
+      - DEBUG=${DEBUG}
+      - DJANGO_SETTINGS_MODULE=kapiga_site.settings_production
+      - SECRET_KEY=${SECRET_KEY}
+      - DATABASE_URL=postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@db:5432/${POSTGRES_DB}
+      - ALLOWED_HOSTS=${ALLOWED_HOSTS}
+      - EMAIL_HOST_USER=${EMAIL_HOST_USER}
+      - EMAIL_HOST_PASSWORD=${EMAIL_HOST_PASSWORD}
+      - ADMIN_EMAIL=${ADMIN_EMAIL}
+      - REDIS_URL=redis://redis:6379/0
+      - DATA_RETENTION_DAYS=${DATA_RETENTION_DAYS}
+    depends_on:
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    restart: unless-stopped
+
+  nginx:
+    image: nginx:alpine
+    container_name: kapiga_nginx_prod
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx.prod.conf:/etc/nginx/nginx.conf
+      - static_volume_prod:/app/staticfiles
+      - media_volume_prod:/app/media
+      - ./ssl:/etc/nginx/ssl  # SSL certificates directory
+    depends_on:
+      - web
+    restart: unless-stopped
+
+volumes:
+  postgres_data_prod:
+  static_volume_prod:
+  media_volume_prod:
+
+networks:
+  default:
+    name: kapiga_network_prod

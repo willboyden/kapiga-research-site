@@ -1,1 +1,18 @@
-...existing code...
+{
+  "total_trials": 8,
+  "total_participants": 20050,
+  "research_span": "1999-2025",
+  "success_rate": 0.75,
+  "intervention_types": {
+    "Behavioral": 4,
+    "Biomedical": 2,
+    "Structural": 1,
+    "Clinical": 1
+  },
+  "key_achievements": [
+    "Led FEM-PrEP trial across 3 African countries",
+    "Demonstrated social worker intervention effectiveness",
+    "Pioneered school-based HIV prevention in Tanzania",
+    "Advanced HPV vaccination research in adolescents"
+  ]
+}

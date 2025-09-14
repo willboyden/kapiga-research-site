@@ -1,0 +1,19 @@
+# Railway Deployment Configuration
+# Create this file as railway.toml in your root directory
+
+[build]
+builder = "dockerfile"
+dockerfilePath = "Dockerfile"
+
+[deploy]
+startCommand = "gunicorn --bind 0.0.0.0:$PORT kapiga_site.wsgi:application"
+healthcheckPath = "/"
+healthcheckTimeout = 300
+restartPolicyType = "on_failure"
+
+[env]
+DATABASE_URL = "${{Postgres.DATABASE_URL}}"
+REDIS_URL = "${{Redis.REDIS_URL}}"
+SECRET_KEY = "${{SECRET_KEY}}"
+DEBUG = "False"
+ALLOWED_HOSTS = "*.railway.app,localhost,127.0.0.1"

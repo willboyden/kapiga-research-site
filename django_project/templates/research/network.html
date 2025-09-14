@@ -1,1 +1,453 @@
-...existing code...
+{% extends 'base.html' %}
+
+{% block title %}Research Network - Dr. Saidi Kapiga{% endblock %}
+
+{% block content %}
+<!-- Network Header -->
+<section class="py-5 bg-dark text-white">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-8">
+                <h1 class="display-4 mb-3">Research Collaboration Network</h1>
+                <p class="lead">
+                    Explore the extensive network of institutions, researchers, and collaborations 
+                    that drive Dr. Saidi Kapiga's HIV research across Africa and beyond.
+                </p>
+            </div>
+            <div class="col-lg-4">
+                <div class="bg-white text-dark p-4 rounded">
+                    <h4 class="text-center mb-3">Network Stats</h4>
+                    <div class="row text-center">
+                        <div class="col-6">
+                            <h5 class="text-primary">{{ nodes|length }}</h5>
+                            <small>Institutions</small>
+                        </div>
+                        <div class="col-6">
+                            <h5 class="text-success">{{ edges|length }}</h5>
+                            <small>Collaborations</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Network Visualization -->
+<section class="py-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <h5><i class="fas fa-project-diagram"></i> Interactive Network Map</h5>
+                        <div class="btn-group" role="group">
+                            <button type="button" class="btn btn-outline-primary btn-sm" onclick="resetNetwork()">
+                                <i class="fas fa-refresh"></i> Reset View
+                            </button>
+                            <button type="button" class="btn btn-outline-secondary btn-sm" onclick="togglePhysics()">
+                                <i class="fas fa-play"></i> Toggle Physics
+                            </button>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <!-- Network will be rendered here -->
+                        <div id="network-container" style="height: 600px; border: 1px solid #ddd;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Network Analysis -->
+<section class="py-5 bg-light">
+    <div class="container">
+        <h2 class="text-center mb-5">Network Analysis</h2>
+        <div class="row">
+            <!-- Key Institutions -->
+            <div class="col-lg-6 mb-4">
+                <div class="card h-100">
+                    <div class="card-header">
+                        <h5><i class="fas fa-building"></i> Key Institutions</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="list-group list-group-flush">
+                            <div class="list-group-item d-flex justify-content-between align-items-center">
+                                <div>
+                                    <h6 class="mb-1">London School of Hygiene & Tropical Medicine</h6>
+                                    <small class="text-muted">United Kingdom • Primary Affiliation</small>
+                                </div>
+                                <span class="badge bg-primary rounded-pill">15</span>
+                            </div>
+                            <div class="list-group-item d-flex justify-content-between align-items-center">
+                                <div>
+                                    <h6 class="mb-1">Mwanza Intervention Trials Unit</h6>
+                                    <small class="text-muted">Tanzania • Research Hub</small>
+                                </div>
+                                <span class="badge bg-success rounded-pill">12</span>
+                            </div>
+                            <div class="list-group-item d-flex justify-content-between align-items-center">
+                                <div>
+                                    <h6 class="mb-1">Tanzania National Institute for Medical Research</h6>
+                                    <small class="text-muted">Tanzania • Government Partner</small>
+                                </div>
+                                <span class="badge bg-info rounded-pill">10</span>
+                            </div>
+                            <div class="list-group-item d-flex justify-content-between align-items-center">
+                                <div>
+                                    <h6 class="mb-1">Harvard School of Public Health</h6>
+                                    <small class="text-muted">United States • Academic Partner</small>
+                                </div>
+                                <span class="badge bg-warning rounded-pill">8</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Collaboration Strength -->
+            <div class="col-lg-6 mb-4">
+                <div class="card h-100">
+                    <div class="card-header">
+                        <h5><i class="fas fa-handshake"></i> Strongest Collaborations</h5>
+                    </div>
+                    <div class="card-body">
+                        <canvas id="collaborationChart" width="400" height="300"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Geographic Distribution -->
+            <div class="col-lg-6 mb-4">
+                <div class="card h-100">
+                    <div class="card-header">
+                        <h5><i class="fas fa-globe"></i> Geographic Distribution</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="row text-center">
+                            <div class="col-6 mb-3">
+                                <h4 class="text-primary">5</h4>
+                                <small>African Countries</small>
+                            </div>
+                            <div class="col-6 mb-3">
+                                <h4 class="text-success">3</h4>
+                                <small>Continents</small>
+                            </div>
+                            <div class="col-6">
+                                <h4 class="text-info">20+</h4>
+                                <small>Research Sites</small>
+                            </div>
+                            <div class="col-6">
+                                <h4 class="text-warning">50+</h4>
+                                <small>Collaborators</small>
+                            </div>
+                        </div>
+                        <hr>
+                        <h6>Country Distribution:</h6>
+                        <div class="progress-stacked">
+                            <div class="progress" style="height: 20px;">
+                                <div class="progress-bar bg-primary" style="width: 40%" title="Tanzania">Tanzania</div>
+                                <div class="progress-bar bg-success" style="width: 25%" title="Kenya">Kenya</div>
+                                <div class="progress-bar bg-info" style="width: 15%" title="Uganda">Uganda</div>
+                                <div class="progress-bar bg-warning" style="width: 10%" title="South Africa">SA</div>
+                                <div class="progress-bar bg-secondary" style="width: 10%" title="Others">Others</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Network Metrics -->
+            <div class="col-lg-6 mb-4">
+                <div class="card h-100">
+                    <div class="card-header">
+                        <h5><i class="fas fa-chart-line"></i> Network Metrics</h5>
+                    </div>
+                    <div class="card-body">
+                        <table class="table table-sm">
+                            <tr>
+                                <td><strong>Network Density:</strong></td>
+                                <td>0.425</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Average Clustering:</strong></td>
+                                <td>0.678</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Average Path Length:</strong></td>
+                                <td>2.3</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Most Central Node:</strong></td>
+                                <td>LSHTM</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Strongest Link:</strong></td>
+                                <td>LSHTM ↔ MITU</td>
+                            </tr>
+                        </table>
+                        <div class="mt-3">
+                            <small class="text-muted">
+                                <i class="fas fa-info-circle"></i> 
+                                Network metrics calculated based on collaboration frequency and project overlap.
+                            </small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Regional Networks -->
+<section class="py-5">
+    <div class="container">
+        <h2 class="text-center mb-5">Regional Research Networks</h2>
+        <div class="row">
+            <div class="col-lg-4 mb-4">
+                <div class="card border-primary">
+                    <div class="card-header bg-primary text-white">
+                        <h5 class="mb-0"><i class="fas fa-map-marker-alt"></i> East Africa Hub</h5>
+                    </div>
+                    <div class="card-body">
+                        <h6>Core Partners:</h6>
+                        <ul class="list-unstyled">
+                            <li>• MITU (Tanzania)</li>
+                            <li>• NIMR (Tanzania)</li>
+                            <li>• KEMRI (Kenya)</li>
+                            <li>• MRC Uganda</li>
+                        </ul>
+                        <p class="text-muted small">
+                            Primary research hub focused on HIV prevention trials, 
+                            adolescent health, and Lake Victoria consortium studies.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-4 mb-4">
+                <div class="card border-success">
+                    <div class="card-header bg-success text-white">
+                        <h5 class="mb-0"><i class="fas fa-graduation-cap"></i> Academic Network</h5>
+                    </div>
+                    <div class="card-body">
+                        <h6>Key Universities:</h6>
+                        <ul class="list-unstyled">
+                            <li>• LSHTM (UK)</li>
+                            <li>• Harvard (USA)</li>
+                            <li>• University of Cape Town</li>
+                            <li>• Stellenbosch University</li>
+                        </ul>
+                        <p class="text-muted small">
+                            Academic partnerships providing methodological expertise, 
+                            training, and capacity building across the network.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-4 mb-4">
+                <div class="card border-info">
+                    <div class="card-header bg-info text-white">
+                        <h5 class="mb-0"><i class="fas fa-hands-helping"></i> Implementation Partners</h5>
+                    </div>
+                    <div class="card-body">
+                        <h6>Key Organizations:</h6>
+                        <ul class="list-unstyled">
+                            <li>• FHI 360</li>
+                            <li>• WHO/AFRO</li>
+                            <li>• National AIDS Programs</li>
+                            <li>• Local NGOs</li>
+                        </ul>
+                        <p class="text-muted small">
+                            Implementation and policy partners ensuring research 
+                            translation into practice and policy.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_css %}
+<style>
+#network-container {
+    background-color: #f8f9fa;
+    border-radius: 5px;
+}
+
+.progress-stacked .progress-bar {
+    font-size: 0.75rem;
+    line-height: 20px;
+}
+
+.card {
+    transition: transform 0.2s;
+}
+
+.card:hover {
+    transform: translateY(-2px);
+}
+
+.list-group-item {
+    border-left: none;
+    border-right: none;
+}
+
+.list-group-item:first-child {
+    border-top: none;
+}
+
+.list-group-item:last-child {
+    border-bottom: none;
+}
+</style>
+{% endblock %}
+
+{% block extra_js %}
+<!-- Include vis.js for network visualization -->
+<script src="https://unpkg.com/vis-network/standalone/umd/vis-network.min.js"></script>
+
+<script>
+// Network data
+const nodes = new vis.DataSet({{ nodes|safe }});
+const edges = new vis.DataSet({{ edges|safe }});
+
+// Network options
+const options = {
+    nodes: {
+        shape: 'dot',
+        size: 16,
+        font: {
+            size: 12,
+            color: '#343a40'
+        },
+        borderWidth: 2,
+        shadow: true
+    },
+    edges: {
+        width: 1,
+        color: {inherit: 'from'},
+        smooth: {
+            type: 'continuous'
+        },
+        shadow: true
+    },
+    physics: {
+        stabilization: {iterations: 100},
+        barnesHut: {
+            gravitationalConstant: -8000,
+            springConstant: 0.001,
+            springLength: 200
+        }
+    },
+    interaction: {
+        tooltipDelay: 200,
+        hideEdgesOnDrag: true
+    }
+};
+
+// Create network
+const container = document.getElementById('network-container');
+const data = {nodes: nodes, edges: edges};
+const network = new vis.Network(container, data, options);
+
+// Network event handlers
+network.on('selectNode', function(params) {
+    if (params.nodes.length > 0) {
+        const nodeId = params.nodes[0];
+        const node = nodes.get(nodeId);
+        
+        // Show node details
+        showNodeDetails(node);
+    }
+});
+
+network.on('selectEdge', function(params) {
+    if (params.edges.length > 0) {
+        const edgeId = params.edges[0];
+        const edge = edges.get(edgeId);
+        
+        // Show collaboration details
+        showCollaborationDetails(edge);
+    }
+});
+
+// Helper functions
+function showNodeDetails(node) {
+    alert(`Institution: ${node.label}\nCountry: ${node.country}\nType: ${node.type}\nStudies: ${node.study_count}`);
+}
+
+function showCollaborationDetails(edge) {
+    const fromNode = nodes.get(edge.from);
+    const toNode = nodes.get(edge.to);
+    alert(`Collaboration between:\n${fromNode.label} and ${toNode.label}\nStrength: ${edge.weight} shared projects`);
+}
+
+function resetNetwork() {
+    network.fit();
+}
+
+function togglePhysics() {
+    const physicsEnabled = network.physics.physicsEnabled;
+    network.setOptions({physics: !physicsEnabled});
+}
+
+// Collaboration strength chart
+const ctx = document.getElementById('collaborationChart').getContext('2d');
+const collaborationChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+        labels: ['LSHTM-MITU', 'MITU-NIMR', 'LSHTM-Harvard', 'MITU-FHI360', 'NIMR-KCMC'],
+        datasets: [{
+            label: 'Collaboration Strength',
+            data: [15, 12, 8, 6, 5],
+            backgroundColor: [
+                'rgba(255, 99, 132, 0.6)',
+                'rgba(54, 162, 235, 0.6)',
+                'rgba(255, 205, 86, 0.6)',
+                'rgba(75, 192, 192, 0.6)',
+                'rgba(153, 102, 255, 0.6)'
+            ],
+            borderColor: [
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 205, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)'
+            ],
+            borderWidth: 1
+        }]
+    },
+    options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        scales: {
+            y: {
+                beginAtZero: true,
+                title: {
+                    display: true,
+                    text: 'Number of Collaborations'
+                }
+            }
+        },
+        plugins: {
+            legend: {
+                display: false
+            }
+        }
+    }
+});
+
+// Initialize network on load
+document.addEventListener('DOMContentLoaded', function() {
+    // Fit network to container
+    setTimeout(() => {
+        network.fit();
+    }, 1000);
+});
+</script>
+{% endblock %}

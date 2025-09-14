@@ -1,1 +1,4 @@
-...existing code...
+site,enrolled,hiv_incidence_placebo,hiv_incidence_intervention,adherence_rate,retention_rate,total_enrolled
+Bondo (Kenya),543,4.7,4.9,0.26,0.85,2120
+Pretoria (South Africa),876,6.2,6.8,0.32,0.88,2120
+Moshi (Tanzania),701,5.1,5.3,0.29,0.87,2120

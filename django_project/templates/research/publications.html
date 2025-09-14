@@ -1,1 +1,347 @@
-...existing code...
+{% extends 'base.html' %}
+
+{% block title %}Publications - Dr. Saidi Kapiga{% endblock %}
+
+{% block content %}
+<!-- Page Header -->
+<section class="py-5 bg-primary text-white">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-8">
+                <h1 class="display-4 mb-3">Research Publications</h1>
+                <p class="lead">
+                    Comprehensive collection of Dr. Saidi Kapiga's peer-reviewed research publications 
+                    spanning over 30 years of HIV and public health research in Africa.
+                </p>
+            </div>
+            <div class="col-lg-4">
+                <div class="bg-white text-dark p-4 rounded">
+                    <div class="row text-center">
+                        <div class="col-6">
+                            <h3 class="text-primary">{{ publications|length }}</h3>
+                            <p class="mb-0">Publications</p>
+                        </div>
+                        <div class="col-6">
+                            <h3 class="text-success">30+</h3>
+                            <p class="mb-0">Years</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Search and Filter -->
+<section class="py-4 bg-light border-bottom">
+    <div class="container">
+        <form method="GET" class="row g-3">
+            <div class="col-md-6">
+                <input type="text" class="form-control" name="search" 
+                       placeholder="Search publications by title, authors, or journal..." 
+                       value="{{ request.GET.search }}">
+            </div>
+            <div class="col-md-3">
+                <select class="form-select" name="year">
+                    <option value="">All Years</option>
+                    {% for year in years %}
+                    <option value="{{ year }}" {% if request.GET.year == year|stringformat:"s" %}selected{% endif %}>
+                        {{ year }}
+                    </option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="col-md-3">
+                <button type="submit" class="btn btn-primary w-100">
+                    <i class="fas fa-search"></i> Search
+                </button>
+            </div>
+        </form>
+    </div>
+</section>
+
+<!-- Publications List -->
+<section class="py-5">
+    <div class="container">
+        {% if publications %}
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h2>Publications</h2>
+            <div class="d-flex gap-2">
+                <button class="btn btn-outline-secondary btn-sm" onclick="toggleView('list')">
+                    <i class="fas fa-list"></i> List View
+                </button>
+                <button class="btn btn-outline-secondary btn-sm" onclick="toggleView('grid')">
+                    <i class="fas fa-th"></i> Grid View
+                </button>
+            </div>
+        </div>
+
+        <!-- List View (Default) -->
+        <div id="list-view">
+            {% for publication in publications %}
+            <div class="card mb-4 shadow-sm">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-8">
+                            <h5 class="card-title">{{ publication.title }}</h5>
+                            <p class="text-muted mb-2">
+                                <strong>{{ publication.journal }}</strong>
+                                {% if publication.volume %} • Vol {{ publication.volume }}{% endif %}
+                                {% if publication.issue %}({{ publication.issue }}){% endif %}
+                                {% if publication.pages %} • {{ publication.pages }}{% endif %}
+                            </p>
+                            <p class="card-text">
+                                <small class="text-muted">{{ publication.authors|truncatewords:20 }}</small>
+                            </p>
+                            {% if publication.abstract %}
+                            <p class="card-text">{{ publication.abstract|truncatewords:30 }}</p>
+                            {% endif %}
+                        </div>
+                        <div class="col-md-4 text-end">
+                            <div class="mb-2">
+                                <span class="badge bg-primary fs-6">{{ publication.publication_date|date:"M Y" }}</span>
+                            </div>
+                            {% if publication.citation_count %}
+                            <div class="mb-2">
+                                <small class="text-muted">
+                                    <i class="fas fa-quote-right"></i> {{ publication.citation_count }} citation{{ publication.citation_count|pluralize }}
+                                </small>
+                            </div>
+                            {% endif %}
+                            {% if publication.impact_factor %}
+                            <div class="mb-3">
+                                <small class="text-muted">
+                                    Impact Factor: {{ publication.impact_factor }}
+                                </small>
+                            </div>
+                            {% endif %}
+                            <div class="d-flex flex-column gap-2">
+                                {% if publication.doi %}
+                                <a href="https://doi.org/{{ publication.doi }}" target="_blank" class="btn btn-outline-primary btn-sm">
+                                    <i class="fas fa-external-link-alt"></i> DOI
+                                </a>
+                                {% endif %}
+                                {% if publication.pmid %}
+                                <a href="https://pubmed.ncbi.nlm.nih.gov/{{ publication.pmid }}" target="_blank" class="btn btn-outline-secondary btn-sm">
+                                    <i class="fas fa-external-link-alt"></i> PubMed
+                                </a>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+        <!-- Grid View (Hidden by default) -->
+        <div id="grid-view" style="display: none;">
+            <div class="row">
+                {% for publication in publications %}
+                <div class="col-lg-6 mb-4">
+                    <div class="card h-100 shadow-sm">
+                        <div class="card-body">
+                            <h6 class="card-title">{{ publication.title|truncatechars:80 }}</h6>
+                            <p class="text-muted small">
+                                <strong>{{ publication.journal }}</strong><br>
+                                {{ publication.publication_date|date:"M Y" }}
+                                {% if publication.citation_count %} • {{ publication.citation_count }} citations{% endif %}
+                            </p>
+                            <p class="card-text small">{{ publication.authors|truncatewords:10 }}</p>
+                        </div>
+                        <div class="card-footer bg-transparent">
+                            <div class="d-flex gap-2">
+                                {% if publication.doi %}
+                                <a href="https://doi.org/{{ publication.doi }}" target="_blank" class="btn btn-outline-primary btn-sm flex-fill">
+                                    DOI
+                                </a>
+                                {% endif %}
+                                {% if publication.pmid %}
+                                <a href="https://pubmed.ncbi.nlm.nih.gov/{{ publication.pmid }}" target="_blank" class="btn btn-outline-secondary btn-sm flex-fill">
+                                    PubMed
+                                </a>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <!-- Pagination -->
+        {% if is_paginated %}
+        <nav aria-label="Publications pagination" class="mt-5">
+            <ul class="pagination justify-content-center">
+                {% if page_obj.has_previous %}
+                <li class="page-item">
+                    <a class="page-link" href="?page=1{% if request.GET.search %}&search={{ request.GET.search }}{% endif %}{% if request.GET.year %}&year={{ request.GET.year }}{% endif %}">First</a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ page_obj.previous_page_number }}{% if request.GET.search %}&search={{ request.GET.search }}{% endif %}{% if request.GET.year %}&year={{ request.GET.year }}{% endif %}">Previous</a>
+                </li>
+                {% endif %}
+
+                <li class="page-item active">
+                    <span class="page-link">
+                        Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
+                    </span>
+                </li>
+
+                {% if page_obj.has_next %}
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ page_obj.next_page_number }}{% if request.GET.search %}&search={{ request.GET.search }}{% endif %}{% if request.GET.year %}&year={{ request.GET.year }}{% endif %}">Next</a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ page_obj.paginator.num_pages }}{% if request.GET.search %}&search={{ request.GET.search }}{% endif %}{% if request.GET.year %}&year={{ request.GET.year }}{% endif %}">Last</a>
+                </li>
+                {% endif %}
+            </ul>
+        </nav>
+        {% endif %}
+
+        {% else %}
+        <!-- No Publications Found -->
+        <div class="text-center py-5">
+            <div class="mb-4">
+                <i class="fas fa-book-open fa-3x text-muted"></i>
+            </div>
+            <h3>No publications found</h3>
+            <p class="text-muted">Try adjusting your search criteria or browse all publications.</p>
+            <a href="{% url 'research:publications' %}" class="btn btn-primary">View All Publications</a>
+        </div>
+        {% endif %}
+    </div>
+</section>
+
+<!-- Publication Metrics -->
+{% if publications %}
+<section class="py-5 bg-light">
+    <div class="container">
+        <h2 class="text-center mb-5">Publication Impact</h2>
+        <div class="row text-center">
+            <div class="col-md-2">
+                <div class="stat-number text-primary">{{ publications|length }}</div>
+                <h6>Total Publications</h6>
+            </div>
+            <div class="col-md-2">
+                <div class="stat-number text-success">--</div>
+                <h6>Total Citations</h6>
+            </div>
+            <div class="col-md-2">
+                <div class="stat-number text-info">--</div>
+                <h6>H-Index</h6>
+            </div>
+            <div class="col-md-2">
+                <div class="stat-number text-warning">--</div>
+                <h6>Avg Citations</h6>
+            </div>
+            <div class="col-md-2">
+                <div class="stat-number text-danger">--</div>
+                <h6>Journals</h6>
+            </div>
+            <div class="col-md-2">
+                <div class="stat-number text-secondary">30+</div>
+                <h6>Years Active</h6>
+            </div>
+        </div>
+    </div>
+</section>
+{% endif %}
+
+<!-- Key Publications Highlight -->
+<section class="py-5">
+    <div class="container">
+        <h2 class="text-center mb-5">Featured High-Impact Publications</h2>
+        <div class="row">
+            <div class="col-lg-4 mb-4">
+                <div class="card h-100 border-primary">
+                    <div class="card-header bg-primary text-white">
+                        <h6 class="mb-0">Most Cited</h6>
+                    </div>
+                    <div class="card-body">
+                        <h6 class="card-title">Preexposure Prophylaxis for HIV Infection among African Women</h6>
+                        <p class="text-muted small">New England Journal of Medicine • 2012</p>
+                        <p class="card-text">Groundbreaking trial of pre-exposure prophylaxis effectiveness among women in sub-Saharan Africa.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 mb-4">
+                <div class="card h-100 border-success">
+                    <div class="card-header bg-success text-white">
+                        <h6 class="mb-0">Most Recent</h6>
+                    </div>
+                    <div class="card-body">
+                        <h6 class="card-title">Exposure to Toxic Chemical Elements among People Living with HIV/AIDS</h6>
+                        <p class="text-muted small">Environmental Research • 2024</p>
+                        <p class="card-text">Latest research on environmental health factors affecting HIV patients in Tanzania.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 mb-4">
+                <div class="card h-100 border-info">
+                    <div class="card-header bg-info text-white">
+                        <h6 class="mb-0">Clinical Innovation</h6>
+                    </div>
+                    <div class="card-body">
+                        <h6 class="card-title">Social Worker Intervention to Reduce Post-Hospital Mortality</h6>
+                        <p class="text-muted small">Contemporary Clinical Trials • 2022</p>
+                        <p class="card-text">Innovative intervention improving HIV patient outcomes through social support.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_css %}
+<style>
+.stat-number {
+    font-size: 2.5rem;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+}
+
+.card {
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.15) !important;
+}
+
+.publication-year {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    background: rgba(0,0,0,0.1);
+    padding: 5px 10px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+}
+</style>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+function toggleView(viewType) {
+    const listView = document.getElementById('list-view');
+    const gridView = document.getElementById('grid-view');
+    
+    if (viewType === 'list') {
+        listView.style.display = 'block';
+        gridView.style.display = 'none';
+    } else {
+        listView.style.display = 'none';
+        gridView.style.display = 'block';
+    }
+}
+
+// Auto-submit form on year change
+document.querySelector('select[name="year"]').addEventListener('change', function() {
+    this.form.submit();
+});
+</script>
+{% endblock %}

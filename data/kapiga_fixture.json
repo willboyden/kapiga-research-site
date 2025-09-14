@@ -1,1 +1,1583 @@
-...existing code...
+[
+{
+  "model": "contenttypes.contenttype",
+  "fields": {
+    "app_label": "admin",
+    "model": "logentry"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "fields": {
+    "app_label": "auth",
+    "model": "permission"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "fields": {
+    "app_label": "auth",
+    "model": "group"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "fields": {
+    "app_label": "auth",
+    "model": "user"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "fields": {
+    "app_label": "contenttypes",
+    "model": "contenttype"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "fields": {
+    "app_label": "sessions",
+    "model": "session"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "fields": {
+    "app_label": "research",
+    "model": "institution"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "fields": {
+    "app_label": "research",
+    "model": "researchcategory"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "fields": {
+    "app_label": "research",
+    "model": "researcher"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "fields": {
+    "app_label": "research",
+    "model": "researchstudy"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "fields": {
+    "app_label": "research",
+    "model": "researchtopic"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "fields": {
+    "app_label": "research",
+    "model": "publication"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "fields": {
+    "app_label": "research",
+    "model": "geographiclocation"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "fields": {
+    "app_label": "research",
+    "model": "dataset"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "fields": {
+    "app_label": "research",
+    "model": "analyticsresult"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "fields": {
+    "app_label": "research",
+    "model": "studyparticipation"
+  }
+},
+{
+  "model": "research.researchcategory",
+  "pk": 1,
+  "fields": {
+    "name": "HIV Virology",
+    "description": "",
+    "created_at": "2025-09-10T03:43:35.527Z"
+  }
+},
+{
+  "model": "research.researchcategory",
+  "pk": 2,
+  "fields": {
+    "name": "HIV Prevention",
+    "description": "",
+    "created_at": "2025-09-10T03:43:35.540Z"
+  }
+},
+{
+  "model": "research.researchcategory",
+  "pk": 3,
+  "fields": {
+    "name": "HIV Treatment",
+    "description": "",
+    "created_at": "2025-09-10T03:43:35.544Z"
+  }
+},
+{
+  "model": "research.researchcategory",
+  "pk": 4,
+  "fields": {
+    "name": "HIV Epidemiology",
+    "description": "",
+    "created_at": "2025-09-10T03:43:35.548Z"
+  }
+},
+{
+  "model": "research.researchcategory",
+  "pk": 5,
+  "fields": {
+    "name": "HIV Risk Factors",
+    "description": "",
+    "created_at": "2025-09-10T03:43:35.556Z"
+  }
+},
+{
+  "model": "research.researchcategory",
+  "pk": 6,
+  "fields": {
+    "name": "Cardiovascular Disease",
+    "description": "",
+    "created_at": "2025-09-10T03:43:35.563Z"
+  }
+},
+{
+  "model": "research.researchcategory",
+  "pk": 7,
+  "fields": {
+    "name": "Environmental Health",
+    "description": "",
+    "created_at": "2025-09-10T03:43:35.567Z"
+  }
+},
+{
+  "model": "research.researchcategory",
+  "pk": 8,
+  "fields": {
+    "name": "Methods",
+    "description": "",
+    "created_at": "2025-09-10T03:43:35.571Z"
+  }
+},
+{
+  "model": "research.researchcategory",
+  "pk": 9,
+  "fields": {
+    "name": "Uncategorized",
+    "description": "",
+    "created_at": "2025-09-10T03:43:36.334Z"
+  }
+},
+{
+  "model": "research.institution",
+  "pk": 1,
+  "fields": {
+    "name": "London School of Hygiene & Tropical Medicine",
+    "country": "United Kingdom",
+    "type": "",
+    "website": null
+  }
+},
+{
+  "model": "research.institution",
+  "pk": 2,
+  "fields": {
+    "name": "Mwanza Intervention Trials Unit",
+    "country": "Tanzania",
+    "type": "",
+    "website": null
+  }
+},
+{
+  "model": "research.institution",
+  "pk": 3,
+  "fields": {
+    "name": "Tanzania National Institute for Medical Research",
+    "country": "Tanzania",
+    "type": "",
+    "website": null
+  }
+},
+{
+  "model": "research.institution",
+  "pk": 4,
+  "fields": {
+    "name": "Harvard School of Public Health",
+    "country": "United States",
+    "type": "",
+    "website": null
+  }
+},
+{
+  "model": "research.institution",
+  "pk": 5,
+  "fields": {
+    "name": "FHI 360",
+    "country": "United States",
+    "type": "",
+    "website": null
+  }
+},
+{
+  "model": "research.institution",
+  "pk": 6,
+  "fields": {
+    "name": "Kilimanjaro Christian Medical Centre",
+    "country": "Tanzania",
+    "type": "",
+    "website": null
+  }
+},
+{
+  "model": "research.institution",
+  "pk": 7,
+  "fields": {
+    "name": "University of Cape Town",
+    "country": "South Africa",
+    "type": "",
+    "website": null
+  }
+},
+{
+  "model": "research.institution",
+  "pk": 8,
+  "fields": {
+    "name": "Weill Cornell Medicine",
+    "country": "United States",
+    "type": "",
+    "website": null
+  }
+},
+{
+  "model": "research.researchstudy",
+  "pk": 2,
+  "fields": {
+    "title": "Deciphering the Complex Distribution of HIV-1 Subtypes among Different Cohorts in Northern Tanzania Study",
+    "description": "Auto-generated for publication: Deciphering the Complex Distribution of HIV-1 Subtypes among Different Cohorts in Northern Tanzania",
+    "abstract": "",
+    "category": 1,
+    "study_type": "Cross-sectional",
+    "start_date": null,
+    "end_date": null,
+    "sample_size": 140,
+    "location": "Tanzania",
+    "is_published": false,
+    "publication_date": null,
+    "journal": "",
+    "doi": "",
+    "pmid": "",
+    "created_at": "2025-09-10T03:43:35.532Z",
+    "updated_at": "2025-09-10T03:43:35.532Z",
+    "institutions": []
+  }
+},
+{
+  "model": "research.researchstudy",
+  "pk": 3,
+  "fields": {
+    "title": "Preexposure Prophylaxis for HIV Infection among African Women Study",
+    "description": "Auto-generated for publication: Preexposure Prophylaxis for HIV Infection among African Women",
+    "abstract": "",
+    "category": 2,
+    "study_type": "RCT",
+    "start_date": null,
+    "end_date": null,
+    "sample_size": 2120,
+    "location": "Kenya/Tanzania/South Africa",
+    "is_published": false,
+    "publication_date": null,
+    "journal": "",
+    "doi": "",
+    "pmid": "",
+    "created_at": "2025-09-10T03:43:35.541Z",
+    "updated_at": "2025-09-10T03:43:35.541Z",
+    "institutions": []
+  }
+},
+{
+  "model": "research.researchstudy",
+  "pk": 4,
+  "fields": {
+    "title": "A social worker intervention to reduce post-hospital mortality in HIV-infected adults in Tanzania Study",
+    "description": "Auto-generated for publication: A social worker intervention to reduce post-hospital mortality in HIV-infected adults in Tanzania",
+    "abstract": "",
+    "category": 3,
+    "study_type": "RCT",
+    "start_date": null,
+    "end_date": null,
+    "sample_size": 500,
+    "location": "Tanzania",
+    "is_published": false,
+    "publication_date": null,
+    "journal": "",
+    "doi": "",
+    "pmid": "",
+    "created_at": "2025-09-10T03:43:35.545Z",
+    "updated_at": "2025-09-10T03:43:35.545Z",
+    "institutions": []
+  }
+},
+{
+  "model": "research.researchstudy",
+  "pk": 5,
+  "fields": {
+    "title": "HIV Infection among Young People in Northwest Tanzania: The Role of Biological, Behavioural and Socio-Demographic Risk Factors Study",
+    "description": "Auto-generated for publication: HIV Infection among Young People in Northwest Tanzania: The Role of Biological, Behavioural and Socio-Demographic Risk Factors",
+    "abstract": "",
+    "category": 4,
+    "study_type": "Cross-sectional",
+    "start_date": null,
+    "end_date": null,
+    "sample_size": 13735,
+    "location": "Tanzania",
+    "is_published": false,
+    "publication_date": null,
+    "journal": "",
+    "doi": "",
+    "pmid": "",
+    "created_at": "2025-09-10T03:43:35.549Z",
+    "updated_at": "2025-09-10T03:43:35.549Z",
+    "institutions": []
+  }
+},
+{
+  "model": "research.researchstudy",
+  "pk": 6,
+  "fields": {
+    "title": "Place matters: multilevel investigation of HIV distribution in Tanzania Study",
+    "description": "Auto-generated for publication: Place matters: multilevel investigation of HIV distribution in Tanzania",
+    "abstract": "",
+    "category": 4,
+    "study_type": "Cross-sectional",
+    "start_date": null,
+    "end_date": null,
+    "sample_size": 8000,
+    "location": "Tanzania",
+    "is_published": false,
+    "publication_date": null,
+    "journal": "",
+    "doi": "",
+    "pmid": "",
+    "created_at": "2025-09-10T03:43:35.553Z",
+    "updated_at": "2025-09-10T03:43:35.553Z",
+    "institutions": []
+  }
+},
+{
+  "model": "research.researchstudy",
+  "pk": 7,
+  "fields": {
+    "title": "Alcohol use before sex and HIV risk: situational characteristics of protected and unprotected encounters Study",
+    "description": "Auto-generated for publication: Alcohol use before sex and HIV risk: situational characteristics of protected and unprotected encounters",
+    "abstract": "",
+    "category": 5,
+    "study_type": "Cohort",
+    "start_date": null,
+    "end_date": null,
+    "sample_size": 608,
+    "location": "Tanzania",
+    "is_published": false,
+    "publication_date": null,
+    "journal": "",
+    "doi": "",
+    "pmid": "",
+    "created_at": "2025-09-10T03:43:35.558Z",
+    "updated_at": "2025-09-10T03:43:35.558Z",
+    "institutions": []
+  }
+},
+{
+  "model": "research.researchstudy",
+  "pk": 8,
+  "fields": {
+    "title": "Socioeconomic status and HIV seroprevalence in Tanzania: a counterintuitive relationship Study",
+    "description": "Auto-generated for publication: Socioeconomic status and HIV seroprevalence in Tanzania: a counterintuitive relationship",
+    "abstract": "",
+    "category": 4,
+    "study_type": "Cross-sectional",
+    "start_date": null,
+    "end_date": null,
+    "sample_size": 9153,
+    "location": "Tanzania",
+    "is_published": false,
+    "publication_date": null,
+    "journal": "",
+    "doi": "",
+    "pmid": "",
+    "created_at": "2025-09-10T03:43:35.561Z",
+    "updated_at": "2025-09-10T03:43:35.561Z",
+    "institutions": []
+  }
+},
+{
+  "model": "research.researchstudy",
+  "pk": 9,
+  "fields": {
+    "title": "Hypertension among adolescents in sub-Saharan Africa: a systematic review Study",
+    "description": "Auto-generated for publication: Hypertension among adolescents in sub-Saharan Africa: a systematic review",
+    "abstract": "",
+    "category": 6,
+    "study_type": "Systematic Review",
+    "start_date": null,
+    "end_date": null,
+    "sample_size": null,
+    "location": "Sub-Saharan Africa",
+    "is_published": false,
+    "publication_date": null,
+    "journal": "",
+    "doi": "",
+    "pmid": "",
+    "created_at": "2025-09-10T03:43:35.565Z",
+    "updated_at": "2025-09-10T03:43:35.565Z",
+    "institutions": []
+  }
+},
+{
+  "model": "research.researchstudy",
+  "pk": 10,
+  "fields": {
+    "title": "Exposure to Toxic Chemical Elements among People Living with HIV/AIDS in Northern Tanzania Study",
+    "description": "Auto-generated for publication: Exposure to Toxic Chemical Elements among People Living with HIV/AIDS in Northern Tanzania",
+    "abstract": "",
+    "category": 7,
+    "study_type": "Cross-sectional",
+    "start_date": null,
+    "end_date": null,
+    "sample_size": 245,
+    "location": "Tanzania",
+    "is_published": false,
+    "publication_date": null,
+    "journal": "",
+    "doi": "",
+    "pmid": "",
+    "created_at": "2025-09-10T03:43:35.568Z",
+    "updated_at": "2025-09-10T03:43:35.568Z",
+    "institutions": []
+  }
+},
+{
+  "model": "research.researchstudy",
+  "pk": 11,
+  "fields": {
+    "title": "The validity of an area-based method to estimate the size of hard-to-reach populations using satellite images Study",
+    "description": "Auto-generated for publication: The validity of an area-based method to estimate the size of hard-to-reach populations using satellite images",
+    "abstract": "",
+    "category": 8,
+    "study_type": "Methods",
+    "start_date": null,
+    "end_date": null,
+    "sample_size": null,
+    "location": "Lake Victoria",
+    "is_published": false,
+    "publication_date": null,
+    "journal": "",
+    "doi": "",
+    "pmid": "",
+    "created_at": "2025-09-10T03:43:35.572Z",
+    "updated_at": "2025-09-10T03:43:35.572Z",
+    "institutions": []
+  }
+},
+{
+  "model": "research.researchstudy",
+  "pk": 12,
+  "fields": {
+    "title": "FEM-PrEP",
+    "description": "Preexposure Prophylaxis Trial for HIV Prevention among African Women",
+    "abstract": "",
+    "category": 9,
+    "study_type": "Double-blind RCT",
+    "start_date": null,
+    "end_date": null,
+    "sample_size": 2120,
+    "location": "Kenya, Tanzania, South Africa",
+    "is_published": false,
+    "publication_date": null,
+    "journal": "",
+    "doi": "",
+    "pmid": "",
+    "created_at": "2025-09-10T03:43:36.340Z",
+    "updated_at": "2025-09-10T03:43:36.340Z",
+    "institutions": []
+  }
+},
+{
+  "model": "research.researchstudy",
+  "pk": 13,
+  "fields": {
+    "title": "Daraja Trial",
+    "description": "Social Worker Intervention to Reduce Post-Hospital Mortality in HIV Patients",
+    "abstract": "",
+    "category": 9,
+    "study_type": "RCT",
+    "start_date": null,
+    "end_date": null,
+    "sample_size": 500,
+    "location": "Tanzania",
+    "is_published": false,
+    "publication_date": null,
+    "journal": "",
+    "doi": "",
+    "pmid": "",
+    "created_at": "2025-09-10T03:43:36.342Z",
+    "updated_at": "2025-09-10T03:43:36.342Z",
+    "institutions": []
+  }
+},
+{
+  "model": "research.researchstudy",
+  "pk": 14,
+  "fields": {
+    "title": "MEMA kwa Vijana",
+    "description": "Community Randomised Trial of Adolescent Sexual Health Intervention",
+    "abstract": "",
+    "category": 9,
+    "study_type": "Cluster RCT",
+    "start_date": null,
+    "end_date": null,
+    "sample_size": 13500,
+    "location": "Tanzania",
+    "is_published": false,
+    "publication_date": null,
+    "journal": "",
+    "doi": "",
+    "pmid": "",
+    "created_at": "2025-09-10T03:43:36.344Z",
+    "updated_at": "2025-09-10T03:43:36.344Z",
+    "institutions": []
+  }
+},
+{
+  "model": "research.researchstudy",
+  "pk": 15,
+  "fields": {
+    "title": "DoRIS (HPV Vaccine)",
+    "description": "Dose Reduction Immunobridging and Safety Study of HPV Vaccine",
+    "abstract": "",
+    "category": 9,
+    "study_type": "RCT",
+    "start_date": null,
+    "end_date": null,
+    "sample_size": 930,
+    "location": "Tanzania",
+    "is_published": false,
+    "publication_date": null,
+    "journal": "",
+    "doi": "",
+    "pmid": "",
+    "created_at": "2025-09-10T03:43:36.346Z",
+    "updated_at": "2025-09-10T03:43:36.346Z",
+    "institutions": []
+  }
+},
+{
+  "model": "research.researchstudy",
+  "pk": 16,
+  "fields": {
+    "title": "IPV Prevention CRT",
+    "description": "Cluster Randomised Trial to Prevent Intimate Partner Violence",
+    "abstract": "",
+    "category": 9,
+    "study_type": "Cluster RCT",
+    "start_date": null,
+    "end_date": null,
+    "sample_size": 1200,
+    "location": "Tanzania",
+    "is_published": false,
+    "publication_date": null,
+    "journal": "",
+    "doi": "",
+    "pmid": "",
+    "created_at": "2025-09-10T03:43:36.348Z",
+    "updated_at": "2025-09-10T03:43:36.348Z",
+    "institutions": []
+  }
+},
+{
+  "model": "research.researchstudy",
+  "pk": 17,
+  "fields": {
+    "title": "Alcohol Intervention Study",
+    "description": "Alcohol-Focused Intervention Package for HIV Patients",
+    "abstract": "",
+    "category": 9,
+    "study_type": "RCT",
+    "start_date": null,
+    "end_date": null,
+    "sample_size": 400,
+    "location": "Tanzania, South Africa",
+    "is_published": false,
+    "publication_date": null,
+    "journal": "",
+    "doi": "",
+    "pmid": "",
+    "created_at": "2025-09-10T03:43:36.350Z",
+    "updated_at": "2025-09-10T03:43:36.350Z",
+    "institutions": []
+  }
+},
+{
+  "model": "research.researchstudy",
+  "pk": 18,
+  "fields": {
+    "title": "Hypertension Screening Trial",
+    "description": "Blood Pressure Screening and Treatment in Adolescents",
+    "abstract": "",
+    "category": 9,
+    "study_type": "RCT",
+    "start_date": null,
+    "end_date": null,
+    "sample_size": 800,
+    "location": "Tanzania",
+    "is_published": false,
+    "publication_date": null,
+    "journal": "",
+    "doi": "",
+    "pmid": "",
+    "created_at": "2025-09-10T03:43:36.352Z",
+    "updated_at": "2025-09-10T03:43:36.352Z",
+    "institutions": []
+  }
+},
+{
+  "model": "research.researchstudy",
+  "pk": 19,
+  "fields": {
+    "title": "Hand Hygiene CRT",
+    "description": "Hand Hygiene Intervention for Helminthic Infection Control",
+    "abstract": "",
+    "category": 9,
+    "study_type": "Cluster RCT",
+    "start_date": null,
+    "end_date": null,
+    "sample_size": 600,
+    "location": "Tanzania",
+    "is_published": false,
+    "publication_date": null,
+    "journal": "",
+    "doi": "",
+    "pmid": "",
+    "created_at": "2025-09-10T03:43:36.353Z",
+    "updated_at": "2025-09-10T03:43:36.353Z",
+    "institutions": []
+  }
+},
+{
+  "model": "research.publication",
+  "pk": 1,
+  "fields": {
+    "title": "Deciphering the Complex Distribution of HIV-1 Subtypes among Different Cohorts in Northern Tanzania",
+    "authors": "",
+    "journal": "PLOS ONE",
+    "volume": "",
+    "issue": "",
+    "pages": "",
+    "publication_date": "2013-01-01",
+    "doi": "",
+    "pmid": "",
+    "abstract": "",
+    "study": 2,
+    "citation_count": 45,
+    "impact_factor": null
+  }
+},
+{
+  "model": "research.publication",
+  "pk": 2,
+  "fields": {
+    "title": "Preexposure Prophylaxis for HIV Infection among African Women",
+    "authors": "",
+    "journal": "New England Journal of Medicine",
+    "volume": "",
+    "issue": "",
+    "pages": "",
+    "publication_date": "2012-01-01",
+    "doi": "",
+    "pmid": "",
+    "abstract": "",
+    "study": 3,
+    "citation_count": 312,
+    "impact_factor": null
+  }
+},
+{
+  "model": "research.publication",
+  "pk": 3,
+  "fields": {
+    "title": "A social worker intervention to reduce post-hospital mortality in HIV-infected adults in Tanzania",
+    "authors": "",
+    "journal": "Contemporary Clinical Trials",
+    "volume": "",
+    "issue": "",
+    "pages": "",
+    "publication_date": "2022-01-01",
+    "doi": "",
+    "pmid": "",
+    "abstract": "",
+    "study": 4,
+    "citation_count": 28,
+    "impact_factor": null
+  }
+},
+{
+  "model": "research.publication",
+  "pk": 4,
+  "fields": {
+    "title": "HIV Infection among Young People in Northwest Tanzania: The Role of Biological, Behavioural and Socio-Demographic Risk Factors",
+    "authors": "",
+    "journal": "PLOS ONE",
+    "volume": "",
+    "issue": "",
+    "pages": "",
+    "publication_date": "2013-01-01",
+    "doi": "",
+    "pmid": "",
+    "abstract": "",
+    "study": 5,
+    "citation_count": 67,
+    "impact_factor": null
+  }
+},
+{
+  "model": "research.publication",
+  "pk": 5,
+  "fields": {
+    "title": "Place matters: multilevel investigation of HIV distribution in Tanzania",
+    "authors": "",
+    "journal": "BMC Public Health",
+    "volume": "",
+    "issue": "",
+    "pages": "",
+    "publication_date": "2009-01-01",
+    "doi": "",
+    "pmid": "",
+    "abstract": "",
+    "study": 6,
+    "citation_count": 89,
+    "impact_factor": null
+  }
+},
+{
+  "model": "research.publication",
+  "pk": 6,
+  "fields": {
+    "title": "Alcohol use before sex and HIV risk: situational characteristics of protected and unprotected encounters",
+    "authors": "",
+    "journal": "Sexually Transmitted Diseases",
+    "volume": "",
+    "issue": "",
+    "pages": "",
+    "publication_date": "2010-01-01",
+    "doi": "",
+    "pmid": "",
+    "abstract": "",
+    "study": 7,
+    "citation_count": 156,
+    "impact_factor": null
+  }
+},
+{
+  "model": "research.publication",
+  "pk": 7,
+  "fields": {
+    "title": "Socioeconomic status and HIV seroprevalence in Tanzania: a counterintuitive relationship",
+    "authors": "",
+    "journal": "BMC Public Health",
+    "volume": "",
+    "issue": "",
+    "pages": "",
+    "publication_date": "2008-01-01",
+    "doi": "",
+    "pmid": "",
+    "abstract": "",
+    "study": 8,
+    "citation_count": 78,
+    "impact_factor": null
+  }
+},
+{
+  "model": "research.publication",
+  "pk": 8,
+  "fields": {
+    "title": "Hypertension among adolescents in sub-Saharan Africa: a systematic review",
+    "authors": "",
+    "journal": "Frontiers in Cardiovascular Medicine",
+    "volume": "",
+    "issue": "",
+    "pages": "",
+    "publication_date": "2023-01-01",
+    "doi": "",
+    "pmid": "",
+    "abstract": "",
+    "study": 9,
+    "citation_count": 12,
+    "impact_factor": null
+  }
+},
+{
+  "model": "research.publication",
+  "pk": 9,
+  "fields": {
+    "title": "Exposure to Toxic Chemical Elements among People Living with HIV/AIDS in Northern Tanzania",
+    "authors": "",
+    "journal": "Environmental Research",
+    "volume": "",
+    "issue": "",
+    "pages": "",
+    "publication_date": "2024-01-01",
+    "doi": "",
+    "pmid": "",
+    "abstract": "",
+    "study": 10,
+    "citation_count": 8,
+    "impact_factor": null
+  }
+},
+{
+  "model": "research.publication",
+  "pk": 10,
+  "fields": {
+    "title": "The validity of an area-based method to estimate the size of hard-to-reach populations using satellite images",
+    "authors": "",
+    "journal": "PLOS ONE",
+    "volume": "",
+    "issue": "",
+    "pages": "",
+    "publication_date": "2018-01-01",
+    "doi": "",
+    "pmid": "",
+    "abstract": "",
+    "study": 11,
+    "citation_count": 34,
+    "impact_factor": null
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can add log entry",
+    "content_type": [
+      "admin",
+      "logentry"
+    ],
+    "codename": "add_logentry"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can change log entry",
+    "content_type": [
+      "admin",
+      "logentry"
+    ],
+    "codename": "change_logentry"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can delete log entry",
+    "content_type": [
+      "admin",
+      "logentry"
+    ],
+    "codename": "delete_logentry"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can view log entry",
+    "content_type": [
+      "admin",
+      "logentry"
+    ],
+    "codename": "view_logentry"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can add permission",
+    "content_type": [
+      "auth",
+      "permission"
+    ],
+    "codename": "add_permission"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can change permission",
+    "content_type": [
+      "auth",
+      "permission"
+    ],
+    "codename": "change_permission"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can delete permission",
+    "content_type": [
+      "auth",
+      "permission"
+    ],
+    "codename": "delete_permission"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can view permission",
+    "content_type": [
+      "auth",
+      "permission"
+    ],
+    "codename": "view_permission"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can add group",
+    "content_type": [
+      "auth",
+      "group"
+    ],
+    "codename": "add_group"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can change group",
+    "content_type": [
+      "auth",
+      "group"
+    ],
+    "codename": "change_group"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can delete group",
+    "content_type": [
+      "auth",
+      "group"
+    ],
+    "codename": "delete_group"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can view group",
+    "content_type": [
+      "auth",
+      "group"
+    ],
+    "codename": "view_group"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can add user",
+    "content_type": [
+      "auth",
+      "user"
+    ],
+    "codename": "add_user"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can change user",
+    "content_type": [
+      "auth",
+      "user"
+    ],
+    "codename": "change_user"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can delete user",
+    "content_type": [
+      "auth",
+      "user"
+    ],
+    "codename": "delete_user"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can view user",
+    "content_type": [
+      "auth",
+      "user"
+    ],
+    "codename": "view_user"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can add content type",
+    "content_type": [
+      "contenttypes",
+      "contenttype"
+    ],
+    "codename": "add_contenttype"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can change content type",
+    "content_type": [
+      "contenttypes",
+      "contenttype"
+    ],
+    "codename": "change_contenttype"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can delete content type",
+    "content_type": [
+      "contenttypes",
+      "contenttype"
+    ],
+    "codename": "delete_contenttype"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can view content type",
+    "content_type": [
+      "contenttypes",
+      "contenttype"
+    ],
+    "codename": "view_contenttype"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can add session",
+    "content_type": [
+      "sessions",
+      "session"
+    ],
+    "codename": "add_session"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can change session",
+    "content_type": [
+      "sessions",
+      "session"
+    ],
+    "codename": "change_session"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can delete session",
+    "content_type": [
+      "sessions",
+      "session"
+    ],
+    "codename": "delete_session"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can view session",
+    "content_type": [
+      "sessions",
+      "session"
+    ],
+    "codename": "view_session"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can add institution",
+    "content_type": [
+      "research",
+      "institution"
+    ],
+    "codename": "add_institution"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can change institution",
+    "content_type": [
+      "research",
+      "institution"
+    ],
+    "codename": "change_institution"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can delete institution",
+    "content_type": [
+      "research",
+      "institution"
+    ],
+    "codename": "delete_institution"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can view institution",
+    "content_type": [
+      "research",
+      "institution"
+    ],
+    "codename": "view_institution"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can add research category",
+    "content_type": [
+      "research",
+      "researchcategory"
+    ],
+    "codename": "add_researchcategory"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can change research category",
+    "content_type": [
+      "research",
+      "researchcategory"
+    ],
+    "codename": "change_researchcategory"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can delete research category",
+    "content_type": [
+      "research",
+      "researchcategory"
+    ],
+    "codename": "delete_researchcategory"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can view research category",
+    "content_type": [
+      "research",
+      "researchcategory"
+    ],
+    "codename": "view_researchcategory"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can add researcher",
+    "content_type": [
+      "research",
+      "researcher"
+    ],
+    "codename": "add_researcher"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can change researcher",
+    "content_type": [
+      "research",
+      "researcher"
+    ],
+    "codename": "change_researcher"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can delete researcher",
+    "content_type": [
+      "research",
+      "researcher"
+    ],
+    "codename": "delete_researcher"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can view researcher",
+    "content_type": [
+      "research",
+      "researcher"
+    ],
+    "codename": "view_researcher"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can add research study",
+    "content_type": [
+      "research",
+      "researchstudy"
+    ],
+    "codename": "add_researchstudy"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can change research study",
+    "content_type": [
+      "research",
+      "researchstudy"
+    ],
+    "codename": "change_researchstudy"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can delete research study",
+    "content_type": [
+      "research",
+      "researchstudy"
+    ],
+    "codename": "delete_researchstudy"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can view research study",
+    "content_type": [
+      "research",
+      "researchstudy"
+    ],
+    "codename": "view_researchstudy"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can add research topic",
+    "content_type": [
+      "research",
+      "researchtopic"
+    ],
+    "codename": "add_researchtopic"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can change research topic",
+    "content_type": [
+      "research",
+      "researchtopic"
+    ],
+    "codename": "change_researchtopic"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can delete research topic",
+    "content_type": [
+      "research",
+      "researchtopic"
+    ],
+    "codename": "delete_researchtopic"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can view research topic",
+    "content_type": [
+      "research",
+      "researchtopic"
+    ],
+    "codename": "view_researchtopic"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can add publication",
+    "content_type": [
+      "research",
+      "publication"
+    ],
+    "codename": "add_publication"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can change publication",
+    "content_type": [
+      "research",
+      "publication"
+    ],
+    "codename": "change_publication"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can delete publication",
+    "content_type": [
+      "research",
+      "publication"
+    ],
+    "codename": "delete_publication"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can view publication",
+    "content_type": [
+      "research",
+      "publication"
+    ],
+    "codename": "view_publication"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can add geographic location",
+    "content_type": [
+      "research",
+      "geographiclocation"
+    ],
+    "codename": "add_geographiclocation"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can change geographic location",
+    "content_type": [
+      "research",
+      "geographiclocation"
+    ],
+    "codename": "change_geographiclocation"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can delete geographic location",
+    "content_type": [
+      "research",
+      "geographiclocation"
+    ],
+    "codename": "delete_geographiclocation"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can view geographic location",
+    "content_type": [
+      "research",
+      "geographiclocation"
+    ],
+    "codename": "view_geographiclocation"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can add dataset",
+    "content_type": [
+      "research",
+      "dataset"
+    ],
+    "codename": "add_dataset"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can change dataset",
+    "content_type": [
+      "research",
+      "dataset"
+    ],
+    "codename": "change_dataset"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can delete dataset",
+    "content_type": [
+      "research",
+      "dataset"
+    ],
+    "codename": "delete_dataset"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can view dataset",
+    "content_type": [
+      "research",
+      "dataset"
+    ],
+    "codename": "view_dataset"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can add analytics result",
+    "content_type": [
+      "research",
+      "analyticsresult"
+    ],
+    "codename": "add_analyticsresult"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can change analytics result",
+    "content_type": [
+      "research",
+      "analyticsresult"
+    ],
+    "codename": "change_analyticsresult"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can delete analytics result",
+    "content_type": [
+      "research",
+      "analyticsresult"
+    ],
+    "codename": "delete_analyticsresult"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can view analytics result",
+    "content_type": [
+      "research",
+      "analyticsresult"
+    ],
+    "codename": "view_analyticsresult"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can add study participation",
+    "content_type": [
+      "research",
+      "studyparticipation"
+    ],
+    "codename": "add_studyparticipation"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can change study participation",
+    "content_type": [
+      "research",
+      "studyparticipation"
+    ],
+    "codename": "change_studyparticipation"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can delete study participation",
+    "content_type": [
+      "research",
+      "studyparticipation"
+    ],
+    "codename": "delete_studyparticipation"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can view study participation",
+    "content_type": [
+      "research",
+      "studyparticipation"
+    ],
+    "codename": "view_studyparticipation"
+  }
+}
+]

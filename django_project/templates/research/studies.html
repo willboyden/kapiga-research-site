@@ -1,1 +1,242 @@
-...existing code...
+{% extends 'base.html' %}
+
+{% block title %}Research Studies - Dr. Saidi Kapiga{% endblock %}
+
+{% block content %}
+<!-- Page Header -->
+<section class="py-5 bg-light">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8">
+                <h1>Research Studies</h1>
+                <p class="lead">
+                    Explore Dr. Saidi Kapiga's comprehensive portfolio of HIV research studies, 
+                    clinical trials, and public health interventions across Africa.
+                </p>
+            </div>
+            <div class="col-lg-4">
+                <div class="card">
+                    <div class="card-body text-center">
+                        <h3>{{ studies|length }}</h3>
+                        <p class="text-muted">Total Studies</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Search and Filter Section -->
+<section class="py-4 bg-white border-bottom">
+    <div class="container">
+        <form method="GET" class="row g-3">
+            <div class="col-md-4">
+                <input type="text" class="form-control" name="search" 
+                       placeholder="Search studies..." value="{{ request.GET.search }}">
+            </div>
+            <div class="col-md-3">
+                <select class="form-select" name="category">
+                    <option value="">All Categories</option>
+                    {% for category in categories %}
+                    <option value="{{ category.name }}" 
+                            {% if request.GET.category == category.name %}selected{% endif %}>
+                        {{ category.name }}
+                    </option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="col-md-3">
+                <select class="form-select" name="type">
+                    <option value="">All Study Types</option>
+                    {% for value, display in study_types %}
+                    <option value="{{ value }}" 
+                            {% if request.GET.type == value %}selected{% endif %}>
+                        {{ display }}
+                    </option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="col-md-2">
+                <button type="submit" class="btn btn-primary w-100">Filter</button>
+            </div>
+        </form>
+    </div>
+</section>
+
+<!-- Studies Grid -->
+<section class="py-5">
+    <div class="container">
+        {% if studies %}
+        <div class="row">
+            {% for study in studies %}
+            <div class="col-lg-6 col-xl-4 mb-4">
+                <div class="card h-100 shadow-sm">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between align-items-start mb-2">
+                            <span class="badge bg-primary">{{ study.get_study_type_display }}</span>
+                            {% if study.is_published %}
+                            <span class="badge bg-success">Published</span>
+                            {% else %}
+                            <span class="badge bg-warning">Ongoing</span>
+                            {% endif %}
+                        </div>
+                        
+                        <h5 class="card-title">
+                            <a href="{% url 'research:study_detail' study.pk %}" class="text-decoration-none">
+                                {{ study.title|truncatechars:80 }}
+                            </a>
+                        </h5>
+                        
+                        <p class="card-text text-muted small">
+                            {{ study.description|truncatewords:25 }}
+                        </p>
+                        
+                        <div class="study-metadata">
+                            <small class="text-muted">
+                                <i class="fas fa-map-marker-alt"></i> {{ study.location }}<br>
+                                {% if study.sample_size %}
+                                <i class="fas fa-users"></i> {{ study.sample_size|floatformat:0 }} participants<br>
+                                {% endif %}
+                                {% if study.publication_date %}
+                                <i class="fas fa-calendar"></i> {{ study.publication_date|date:"M Y" }}<br>
+                                {% endif %}
+                                <i class="fas fa-building"></i> {{ study.institutions.count }} institution{{ study.institutions.count|pluralize }}
+                            </small>
+                        </div>
+                    </div>
+                    
+                    <div class="card-footer bg-transparent">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <small class="text-muted">{{ study.category.name }}</small>
+                            <a href="{% url 'research:study_detail' study.pk %}" class="btn btn-outline-primary btn-sm">
+                                Learn More
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+        <!-- Pagination -->
+        {% if is_paginated %}
+        <nav aria-label="Studies pagination" class="mt-5">
+            <ul class="pagination justify-content-center">
+                {% if page_obj.has_previous %}
+                <li class="page-item">
+                    <a class="page-link" href="?page=1{% if request.GET.search %}&search={{ request.GET.search }}{% endif %}{% if request.GET.category %}&category={{ request.GET.category }}{% endif %}{% if request.GET.type %}&type={{ request.GET.type }}{% endif %}">First</a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ page_obj.previous_page_number }}{% if request.GET.search %}&search={{ request.GET.search }}{% endif %}{% if request.GET.category %}&category={{ request.GET.category }}{% endif %}{% if request.GET.type %}&type={{ request.GET.type }}{% endif %}">Previous</a>
+                </li>
+                {% endif %}
+
+                <li class="page-item active">
+                    <span class="page-link">
+                        Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
+                    </span>
+                </li>
+
+                {% if page_obj.has_next %}
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ page_obj.next_page_number }}{% if request.GET.search %}&search={{ request.GET.search }}{% endif %}{% if request.GET.category %}&category={{ request.GET.category }}{% endif %}{% if request.GET.type %}&type={{ request.GET.type }}{% endif %}">Next</a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ page_obj.paginator.num_pages }}{% if request.GET.search %}&search={{ request.GET.search }}{% endif %}{% if request.GET.category %}&category={{ request.GET.category }}{% endif %}{% if request.GET.type %}&type={{ request.GET.type }}{% endif %}">Last</a>
+                </li>
+                {% endif %}
+            </ul>
+        </nav>
+        {% endif %}
+
+        {% else %}
+        <!-- No Studies Found -->
+        <div class="text-center py-5">
+            <div class="mb-4">
+                <i class="fas fa-search fa-3x text-muted"></i>
+            </div>
+            <h3>No studies found</h3>
+            <p class="text-muted">Try adjusting your search criteria or browse all studies.</p>
+            <a href="{% url 'research:studies' %}" class="btn btn-primary">View All Studies</a>
+        </div>
+        {% endif %}
+    </div>
+</section>
+
+<!-- Study Statistics -->
+{% if studies %}
+<section class="py-5 bg-light">
+    <div class="container">
+        <h2 class="text-center mb-5">Study Statistics</h2>
+        <div class="row text-center">
+            <div class="col-md-3">
+                <div class="stat-number text-primary">{{ studies|length }}</div>
+                <h6>Studies Displayed</h6>
+            </div>
+            <div class="col-md-3">
+                <div class="stat-number text-success">
+                    --
+                </div>
+                <h6>Published Studies</h6>
+            </div>
+            <div class="col-md-3">
+                <div class="stat-number text-info">
+                    --
+                </div>
+                <h6>Total Participants</h6>
+            </div>
+            <div class="col-md-3">
+                <div class="stat-number text-warning">
+                    --
+                </div>
+                <h6>Research Locations</h6>
+            </div>
+        </div>
+    </div>
+</section>
+{% endif %}
+{% endblock %}
+
+{% block extra_css %}
+<style>
+.study-metadata {
+    border-top: 1px solid #eee;
+    padding-top: 10px;
+    margin-top: 10px;
+}
+
+.study-metadata i {
+    width: 15px;
+    color: #6c757d;
+}
+
+.card {
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.15) !important;
+}
+
+.stat-number {
+    font-size: 2.5rem;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+}
+</style>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+// Add any JavaScript for enhanced interactivity
+document.addEventListener('DOMContentLoaded', function() {
+    // Auto-submit form on select change
+    document.querySelectorAll('select[name="category"], select[name="type"]').forEach(function(select) {
+        select.addEventListener('change', function() {
+            this.form.submit();
+        });
+    });
+});
+</script>
+{% endblock %}

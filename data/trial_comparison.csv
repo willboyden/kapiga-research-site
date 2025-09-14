@@ -1,1 +1,5 @@
-...existing code...
+Trial,Primary_Success,Sample_Size,Duration_Years,Innovation_Score,Implementation_Complexity,Policy_Impact,Population,Key_Learning
+FEM-PrEP,0,2120,4,9,8,8,Adult women,Adherence critical for PrEP effectiveness
+Daraja,1,500,3,8,6,7,HIV patients,Social support improves HIV outcomes
+MEMA kwa Vijana,1,13500,8,9,9,9,Adolescents,School-based interventions can reduce HIV risk
+DoRIS HPV,1,930,3,7,5,6,Girls 9-14,Single-dose HPV vaccination effective

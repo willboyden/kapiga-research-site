@@ -1,0 +1,22 @@
+services:
+  - type: web
+    name: kapiga-research-web
+    runtime: docker
+    plan: free
+    repo: https://github.com/willboyden/kapiga-research-site
+    branch: main
+    dockerfilePath: Dockerfile
+    envVars:
+      - key: DATABASE_URL
+        sync: false
+      - key: SECRET_KEY
+        sync: false
+      - key: DEBUG
+        value: 'False'
+    autoDeploy: true
+  - type: pserv
+    name: kapiga-research-db
+    runtime: postgres
+    plan: free
+    databaseName: kapiga_research
+    postgresMajorVersion: 14

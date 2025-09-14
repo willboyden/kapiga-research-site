@@ -1,1 +1,210 @@
-...existing code...
+{% extends 'base.html' %}
+
+{% block title %}About Dr. Saidi Kapiga - HIV Research in Africa{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="py-5 bg-primary text-white">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-8">
+                <h1 class="display-4 mb-4">{{ researcher_name }}</h1>
+                <p class="lead">{{ position }}</p>
+                <p class="lead">{{ institution }}</p>
+                <p>{{ location }}</p>
+            </div>
+            <div class="col-lg-4 text-center">
+                <div class="bg-white text-dark p-4 rounded">
+                    <h3>{{ experience_years }}+ Years</h3>
+                    <p>Public Health Research Experience</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Biography Section -->
+<section class="py-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8">
+                <h2>Biography</h2>
+                <p class="lead">
+                    Dr. Saidi Kapiga is a distinguished Professor of Epidemiology and International Health at the 
+                    London School of Hygiene & Tropical Medicine (LSHTM) and Scientific Director of the 
+                    Mwanza Intervention Trials Unit (MITU) in Tanzania.
+                </p>
+                
+                <p>
+                    With over 30 years of public health research experience, Dr. Kapiga has dedicated his career 
+                    to investigating the individual risk factors and underlying structural factors associated with 
+                    HIV and other health problems in Africa. His work focuses particularly on the evaluation of 
+                    public health interventions across diverse populations in East and Southern Africa.
+                </p>
+                
+                <p>
+                    Dr. Kapiga is currently involved in a range of groundbreaking studies conducted in Mwanza city, 
+                    including clinical trials to assess the impact of social-worker interventions on reducing 
+                    post-hospital mortality among HIV patients, observational studies to determine the incidence 
+                    and determinants of hypertension among HIV-infected and uninfected adults and adolescents, 
+                    and studies to develop and evaluate intervention programmes for adolescent health screening.
+                </p>
+                
+                <p>
+                    He serves as a Co-Principal Investigator of the MRC-funded study to investigate substance use 
+                    disorders among men in urban and rural communities in South Africa, and is a member of several 
+                    research and capacity development programmes in East Africa, including the Wellcome Trust funded 
+                    THRiVE to Research Excellence consortium and the Lake Victoria Consortium for Health Research.
+                </p>
+                
+                <h3 class="mt-5">Academic Contributions</h3>
+                <p>
+                    In addition to his research activities, Dr. Kapiga is actively involved in teaching students 
+                    undertaking distance learning courses in epidemiology, public health, infectious diseases, 
+                    and clinical trials. He currently serves as the Chair of the Board of Examiners in MSC, 
+                    PG Diploma, and PG certificate in Clinical Trials at LSHTM.
+                </p>
+            </div>
+            
+            <div class="col-lg-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5>Quick Facts</h5>
+                        <ul class="list-unstyled">
+                            <li><strong>Position:</strong> {{ position }}</li>
+                            <li><strong>Institution:</strong> {{ institution }}</li>
+                            <li><strong>Location:</strong> {{ location }}</li>
+                            <li><strong>Experience:</strong> {{ experience_years }}+ years</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="card mt-4">
+                    <div class="card-body">
+                        <h5>External Links</h5>
+                        <ul class="list-unstyled">
+                            <li><a href="https://www.lshtm.ac.uk/aboutus/people/kapiga.saidi" target="_blank">LSHTM Profile</a></li>
+                            <li><a href="https://mitu.or.tz/saidi-kapiga/" target="_blank">MITU Profile</a></li>
+                            <li><a href="https://www.researchgate.net/scientific-contributions/Saidi-Kapiga-2184004952" target="_blank">ResearchGate</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Research Areas -->
+<section class="py-5 bg-light">
+    <div class="container">
+        <h2 class="text-center mb-5">Key Research Areas</h2>
+        <div class="row">
+            {% for area in key_research_areas %}
+            <div class="col-lg-6 mb-3">
+                <div class="d-flex align-items-center">
+                    <div class="bg-primary text-white rounded-circle p-3 me-3">
+                        <i class="fas fa-microscope"></i>
+                    </div>
+                    <div>
+                        <h5 class="mb-1">{{ area }}</h5>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<!-- Major Projects -->
+<section class="py-5">
+    <div class="container">
+        <h2 class="text-center mb-5">Major Research Projects</h2>
+        <div class="row">
+            {% for project in major_projects %}
+            <div class="col-lg-6 mb-4">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ project }}</h5>
+                        <p class="card-text">
+                            {% if "Daraja" in project %}
+                            A randomized controlled trial evaluating the efficacy of a social worker intervention 
+                            on reducing post-hospital mortality among HIV-infected patients in Tanzania.
+                            {% elif "FEM-PrEP" in project %}
+                            A double-blind, randomized, placebo-controlled trial of pre-exposure prophylaxis 
+                            with antiretroviral drugs for HIV prevention among African women.
+                            {% elif "MEMA kwa Vijana" in project %}
+                            A community-randomized trial of an adolescent sexual health intervention in 
+                            rural Tanzania focusing on HIV prevention.
+                            {% elif "Lake Victoria" in project %}
+                            A consortium aimed at improving the health of populations in fishing communities 
+                            in Kenya, Tanzania, and Uganda.
+                            {% endif %}
+                        </p>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<!-- Research Impact -->
+<section class="py-5 bg-primary text-white">
+    <div class="container">
+        <h2 class="text-center mb-5">Research Impact</h2>
+        <div class="row text-center">
+            <div class="col-md-4 mb-4">
+                <div class="display-4">100+</div>
+                <h5>Research Publications</h5>
+                <p>Peer-reviewed papers in top medical and public health journals</p>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="display-4">20+</div>
+                <h5>Countries</h5>
+                <p>Research conducted across Eastern and Southern Africa</p>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="display-4">50K+</div>
+                <h5>Study Participants</h5>
+                <p>Individuals enrolled in various research studies</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Institutional Affiliations -->
+<section class="py-5">
+    <div class="container">
+        <h2 class="text-center mb-5">Institutional Affiliations</h2>
+        <div class="row">
+            <div class="col-lg-4 mb-4">
+                <div class="card text-center">
+                    <div class="card-body">
+                        <h5>London School of Hygiene & Tropical Medicine</h5>
+                        <p>Professor of Epidemiology and International Health</p>
+                        <a href="https://www.lshtm.ac.uk/" target="_blank" class="btn btn-outline-primary">Visit LSHTM</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 mb-4">
+                <div class="card text-center">
+                    <div class="card-body">
+                        <h5>Mwanza Intervention Trials Unit</h5>
+                        <p>Scientific Director</p>
+                        <a href="https://mitu.or.tz/" target="_blank" class="btn btn-outline-primary">Visit MITU</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 mb-4">
+                <div class="card text-center">
+                    <div class="card-body">
+                        <h5>Tanzania National Institute for Medical Research</h5>
+                        <p>Research Collaborator</p>
+                        <a href="https://www.nimr.or.tz/" target="_blank" class="btn btn-outline-primary">Visit NIMR</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

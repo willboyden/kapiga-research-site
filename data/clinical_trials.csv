@@ -1,1 +1,9 @@
-...existing code...
+trial_name,full_name,design,sample_size,start_year,duration_years,primary_endpoint,status,impact_score,locations,end_year
+FEM-PrEP,Preexposure Prophylaxis Trial for HIV Prevention among African Women,Double-blind RCT,2120,2009,4,HIV Incidence,Completed,9.5,"Kenya, Tanzania, South Africa",2013
+Daraja Trial,Social Worker Intervention to Reduce Post-Hospital Mortality in HIV Patients,RCT,500,2019,3,Post-hospital mortality,Ongoing,8.2,Tanzania,2022
+MEMA kwa Vijana,Community Randomised Trial of Adolescent Sexual Health Intervention,Cluster RCT,13500,1999,8,HIV incidence in young people,Completed,9.0,Tanzania,2007
+DoRIS (HPV Vaccine),Dose Reduction Immunobridging and Safety Study of HPV Vaccine,RCT,930,2016,3,HPV antibody response,Completed,7.5,Tanzania,2019
+IPV Prevention CRT,Cluster Randomised Trial to Prevent Intimate Partner Violence,Cluster RCT,1200,2020,4,IPV incidence,Ongoing,8.5,Tanzania,2024
+Alcohol Intervention Study,Alcohol-Focused Intervention Package for HIV Patients,RCT,400,2018,2,ART adherence,Completed,7.0,"Tanzania, South Africa",2020
+Hypertension Screening Trial,Blood Pressure Screening and Treatment in Adolescents,RCT,800,2021,2,Blood pressure control,Recruiting,6.5,Tanzania,2023
+Hand Hygiene CRT,Hand Hygiene Intervention for Helminthic Infection Control,Cluster RCT,600,2022,3,Helminth infection rates,Planning,6.0,Tanzania,2025

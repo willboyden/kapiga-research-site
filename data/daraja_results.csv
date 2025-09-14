@@ -1,1 +1,4 @@
-...existing code...
+Outcome,Control_Rate,Intervention_Rate,Risk_Ratio,Risk_Difference
+180-day mortality,0.28,0.188,0.6714285714285714,-0.09200000000000003
+Clinic attendance,0.416,0.716,1.7211538461538463,0.3
+ART initiation,0.452,0.772,1.7079646017699115,0.32
