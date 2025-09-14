@@ -2,7 +2,7 @@
 
 A comprehensive Django-based research portal featuring 30+ years of HIV/AIDS research data, clinical trials analysis, and advanced Python analytics for Dr. Saidi Kapiga's work across Africa.
 
-## 🌳 **GitFlow Workflow**
+d ## 🌳 **GitFlow Workflow**
 
 This repository uses GitFlow for organized development. See [GITFLOW.md](./GITFLOW.md) for detailed documentation.
 
